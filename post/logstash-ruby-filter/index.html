@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Logstash Ruby Filter 小记 - 呓语</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Z10N0110" /><meta name="description" content="Logstash Ruby Filter 小记" /><meta name="keywords" content="logstash, elasticsearch, ruby" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/logstash-ruby-filter/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Logstash Ruby Filter 小记" />
+<meta property="og:description" content="Logstash Ruby Filter 小记" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/logstash-ruby-filter/" />
+<meta property="article:published_time" content="2020-03-20T00:00:00+00:00" />
+<meta property="article:modified_time" content="2020-03-19T00:49:00+08:00" />
+<meta itemprop="name" content="Logstash Ruby Filter 小记">
+<meta itemprop="description" content="Logstash Ruby Filter 小记">
+<meta itemprop="datePublished" content="2020-03-20T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2020-03-19T00:49:00&#43;08:00" />
+<meta itemprop="wordCount" content="2666">
+
+
+
+<meta itemprop="keywords" content="logstash,elasticsearch,ruby," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Logstash Ruby Filter 小记"/>
+<meta name="twitter:description" content="Logstash Ruby Filter 小记"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Z10N0110</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Z10N0110</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Logstash Ruby Filter 小记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2020-03-19 </span>
+        <div class="post-category">
+            <a href="/categories/logstash/"> logstash </a>
+            <a href="/categories/elasticsearch/"> elasticsearch </a>
+            </div>
+          <span class="more-meta"> 约 2666 字 </span>
+          <span class="more-meta"> 预计阅读 6 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#es的dynamic-mapping">es的dynamic mapping</a>
+      <ul>
+        <li><a href="#object-与-object-array">object 与 object array</a></li>
+      </ul>
+    </li>
+    <li><a href="#随机的filed-mapping">随机的filed mapping</a></li>
+    <li><a href="#使用ruby-filter">使用ruby filter</a></li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>早上有同事找说在kibana上某客户的sdk日志从早上8点后直接跳水:</p>
+<p><img src="/imgs/image-20200324221537409.png" alt="image-20200324221537409"></p>
+<p>因为对比业务的metrics监控并未发现异常, 于是我的第一直觉就是日志的格式mapping conflict了</p>
+<p>直接用昨日的日志做个测试, 果然:</p>
+<p><img src="/imgs/image-20200324221830131.png" alt="image-20200324221830131"></p>
+<p>咨询了相关业务同事后, 得知客户最近拿到了新版sdk, 正在为升级做测试.</p>
+<p>至此, 触发问题的源头已经可以确定是来自新版sdk日志的格式, 某处逻辑写日志时未遵守字段类型不变更的约束, 更改了某个字段的类型.</p>
+<p>但要解释日志跳水的原因, 要先从es的dynamic mapping说起.</p>
+<h2 id="es的dynamic-mapping">es的dynamic mapping</h2>
+<p>es作为一个强schema的系统(index的schema它将其称作mapping), 随着其版本的不断发展, 对于index的schema控制其实是在不断的简化.</p>
+<p>在2.x的版本中, index的mapping提供了三个策略:</p>
+<ol>
+<li>自动添加新增的字段的schema (具体的映射规则<a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/dynamic-field-mapping.html">参考</a> )</li>
+<li>忽略新增的字段</li>
+<li>有新增的字段直接抛出异常</li>
+</ol>
+<p>在没有调整过index的设置的情况下, 默认es是使用的策略1.</p>
+<p>而到了5.x, 变成了默认是<a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/dynamic-mapping.html">策略1</a>, 但是可以通过index的settings来disable:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">PUT data/_settings
+{
+  &#34;index.mapper.dynamic&#34;:false 
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>而且这个时候因为还是支持多type的映射的, 可以在mapping API中设置一个 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/5.0/default-mapping.html">default-mapping</a> 策略来决定不同type的doc的不同字段的行为.</p>
+<p>而到了6.x, es直接强制应用<a href="https://www.elastic.co/guide/en/elasticsearch/reference/6.0/dynamic-mapping.html">策略1</a>, 并且因为不再支持多type, 连 <code>__default__</code> 都deprecated了, 索引的mapping settings部分只剩下了时间和数字类型的自动检测开关.</p>
+<p>当然, 想要自定义字段的类型还是可以通过template来实现, 这里就不细说, 可以直接看<a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/dynamic-templates.html">文档</a></p>
+<p>这个策略对于一些常见的类型如 string, double 等来说可以很直观的理解, 但是其他的, 像json object和json obj array怎么办?</p>
+<h3 id="object-与-object-array">object 与 object array</h3>
+<p>根据<a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/object.html">文档</a>里的描述, 一个 json object, 例如</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;city&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;geo&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;latitude&#34;</span><span class="p">:</span> <span class="mf">46.464</span><span class="p">,</span>
+            <span class="nt">&#34;longitude&#34;</span><span class="p">:</span> <span class="mf">30.739</span>
+        <span class="p">},</span>
+        <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;Odesa&#34;</span>
+    <span class="p">},</span>
+    <span class="nt">&#34;plant&#34;</span><span class="p">:</span> <span class="s2">&#34;earth&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>index的时候, es会将其展开</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;plant&#34;</span><span class="p">:</span> <span class="s2">&#34;earth&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;city.name&#34;</span><span class="p">:</span> <span class="s2">&#34;Odesa&#34;</span><span class="p">,</span>
+    <span class="nt">&#34;city.geo.latitude&#34;</span><span class="p">:</span> <span class="mf">46.464</span><span class="p">,</span>
+    <span class="nt">&#34;city.geo.longitude&#34;</span><span class="p">:</span> <span class="mf">30.739</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最终的mapping就像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;mappings&#34;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span> 
+      <span class="nt">&#34;plant&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
+      <span class="p">},</span>
+      <span class="nt">&#34;city&#34;</span><span class="p">:</span> <span class="p">{</span> 
+        <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&#34;name&#34;</span><span class="p">:</span>  <span class="p">{</span> <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;keyword&#34;</span> <span class="p">},</span>
+          <span class="nt">&#34;geo&#34;</span><span class="p">:</span> <span class="p">{</span> 
+            <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+              <span class="nt">&#34;latitude&#34;</span><span class="p">:</span> <span class="p">{</span> <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;half_float&#34;</span> <span class="p">},</span>
+              <span class="nt">&#34;longitude&#34;</span><span class="p">:</span>  <span class="p">{</span> <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;half_float&#34;</span> <span class="p">}</span>
+            <span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>看到这里, object array 的auto mapping规则其实已经呼之欲出: 所有array里的obj元素的所有<strong>同名字段</strong>类型都需要一致.</p>
+<p>按官网的标准解答是 <code>Depends on the first non-'null' value in the array.</code> , 在关于mapping的filed datatypes里面有详细<a href="https://www.elastic.co/guide/en/elasticsearch/reference/master/array.html">解释</a></p>
+<p>举例来说, 一个obj array</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;persons&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;bob&#34;</span><span class="p">,</span> <span class="nt">&#34;age&#34;</span><span class="p">:</span> <span class="mi">33</span><span class="p">},</span>
+    <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;jack&#34;</span><span class="p">,</span> <span class="nt">&#34;age&#34;</span><span class="p">:</span> <span class="mi">28</span><span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>直接根据第一个obj的规则的mapping就是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;persons.name&#34;</span><span class="p">:</span> <span class="s2">&#34;string&#34;</span><span class="p">,</span>
+  <span class="nt">&#34;persons.age&#34;</span><span class="p">:</span> <span class="s2">&#34;long&#34;</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>其实这个规则非常好理解, 因为按照正常的强类型静态编译型语言来举例, 例如golang, 定义一个 A struct 然后有个类型是 A类型的slice, 那么怎么可能会出现不同类型的元素在这个slice里的情况呢?</p>
+<p>而这次的问题, 就出在一个 array 字段里</p>
+<h2 id="随机的filed-mapping">随机的filed mapping</h2>
+<p>sdk的日志作为logstash的input, 是没有区分版本的, 统一成一个输入源, 假设这里有不同版本的2条日志:</p>
+<p>verA</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;arr&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;items&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&#34;item1&#34;</span><span class="p">,</span>
+        <span class="s2">&#34;item2&#34;</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>verB</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+  <span class="nt">&#34;arr&#34;</span><span class="p">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nt">&#34;items&#34;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;bob&#34;</span><span class="p">,</span> <span class="nt">&#34;country&#34;</span><span class="p">:</span> <span class="s2">&#34;us&#34;</span><span class="p">},</span>
+        <span class="p">{</span><span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="s2">&#34;alice&#34;</span><span class="p">,</span> <span class="nt">&#34;country&#34;</span><span class="p">:</span> <span class="s2">&#34;us&#34;</span><span class="p">}</span>
+      <span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可见原先的 <code>arr.items</code> 字段, 在版本A是个 string array, 在es中的mapping是</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;items&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+        <span class="nt">&#34;norms&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="nt">&#34;fields&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;keyword&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>到了版本B, 变成了个 object array, mapping变成了</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-json" data-lang="json"><span class="p">{</span>
+    <span class="nt">&#34;items&#34;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&#34;properties&#34;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&#34;name&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;norms&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&#34;fields&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;keyword&#34;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">},</span>
+            <span class="nt">&#34;country&#34;</span><span class="p">:</span> <span class="p">{</span>
+                <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;text&#34;</span><span class="p">,</span>
+                <span class="nt">&#34;norms&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+                <span class="nt">&#34;fields&#34;</span><span class="p">:</span> <span class="p">{</span>
+                    <span class="nt">&#34;keyword&#34;</span><span class="p">:</span> <span class="p">{</span>
+                        <span class="nt">&#34;type&#34;</span><span class="p">:</span> <span class="s2">&#34;keyword&#34;</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>这样的日志混杂在同一个日志输入里, 对应index的arr的mapping就是个随机问题: 哪个格式的日志先出现, 那么index的mapping就会定型成这样的格式.</p>
+<p>结合上在logstash侧按天(UTC时间)来新建索引的结果就是: 在北京时间的8点这个新建索引的时刻, 占比不到1%的sdk verB的日志非常好运的先出现了, 结果后面99%的verA日志在index的时候全部都mapping error, 在kibana上直接体现就是日志呈现跳水图示.</p>
+<h2 id="使用ruby-filter">使用ruby filter</h2>
+<p>原因分析完了, 更重要的还是兼容. 但是在sdk版本已发出的情况下, 处理的套路只能是在logstash侧使用filter,  好在只需要实现如下的逻辑:</p>
+<p>检测指定array字段里的元素类型是否不为string, 命中的话就将其整个改名.</p>
+<p>虽然logstash自带了非常多的filter, 但上面的需求普通filter模块难以实现(涉及到循环), 这个时候就可以使用强大的ruby filter来解决.</p>
+<p>它不仅让我们可以直接在配置文件里写ruby的代码块来处理logstash event, 并且从 <code>3.1.0</code> 版本开始(logstash5.6起的默认版本), 可以直接使用一个外置的脚本文件来取代原先一块块的ruby code的写法, 类似openresty 的 <code>xxx_by_lua_block</code> 和 <code>xxx_by_lua_file</code> 的区别.</p>
+<p>使用外置script file的优势十分明显:</p>
+<ol>
+<li>可以复用代码而不是到处拷贝大块代码块</li>
+<li>配置文件显得更加清晰易读</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback"># 官网的没什么用的随机丢弃事件的样例
+filter {
+  ruby {
+    # Cancel 90% of events
+    path =&gt; &#34;/etc/logstash/drop_percentage.rb&#34;
+    script_params =&gt; { &#34;percentage&#34; =&gt; 0.9 }
+  }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>脚本编写也非常的简单, 只需要脚本里定义一个核心的函数, 参数为一个logstash内封装好的对象 <code>event</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+  <span class="c1"># ..</span>
+<span class="k">end</span>
+</code></pre></td></tr></table>
+</div>
+</div><p><code>event</code> 对象其实就只允许2个方法: get 和 set, 具体参见<a href="https://www.elastic.co/guide/en/logstash/master/event-api.html">event API</a></p>
+<p>如果脚本还需要接受参数(上面配置里的 <code>script_params</code>), 就多一个 register 函数, 不需要的话都无需定义</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+  <span class="c1"># ..</span>
+<span class="k">end</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>学习一些基础的ruby语法 &ndash; 如循环,基础类型的method等等, 对照官方的blog<a href="https://www.elastic.co/cn/blog/moving-ruby-code-out-of-logstash-pipeline">文章</a>,</p>
+<p>我们可以很快的写出处理脚本: <code>rename.rb</code>, 将不兼容的<code>items</code>字段改名为<code>new_items</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span><span class="lnt">58
+</span><span class="lnt">59
+</span><span class="lnt">60
+</span><span class="lnt">61
+</span><span class="lnt">62
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+  <span class="vi">@source_field</span> <span class="o">=</span> <span class="n">params</span><span class="o">[</span><span class="s2">&#34;source_field&#34;</span><span class="o">]</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">filter</span><span class="p">(</span><span class="n">event</span><span class="p">)</span>
+  <span class="k">if</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="vi">@source_field</span><span class="p">)</span><span class="o">.</span><span class="n">nil?</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="vi">@source_field</span><span class="si">}</span><span class="s2">_not_found&#34;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">[</span><span class="n">event</span><span class="o">]</span>
+  <span class="k">end</span>
+
+  <span class="k">if</span> <span class="ow">not</span> <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="vi">@source_field</span><span class="p">)</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="nb">Array</span><span class="p">)</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">tag</span><span class="p">(</span><span class="s2">&#34;</span><span class="si">#{</span><span class="vi">@source_field</span><span class="si">}</span><span class="s2">_not_an_array&#34;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="o">[</span><span class="n">event</span><span class="o">]</span>
+  <span class="k">end</span>
+
+  <span class="n">event</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="vi">@source_field</span><span class="p">)</span><span class="o">.</span><span class="n">each_with_index</span> <span class="k">do</span> <span class="o">|</span> <span class="n">e</span><span class="p">,</span> <span class="n">idx</span> <span class="o">|</span>
+    <span class="k">next</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">e</span><span class="o">.</span><span class="n">is_a?</span><span class="p">(</span><span class="o">::</span><span class="no">Hash</span><span class="p">)</span>
+    <span class="k">next</span> <span class="k">if</span> <span class="n">e</span><span class="o">[</span><span class="s2">&#34;items&#34;</span><span class="o">].</span><span class="n">nil?</span>
+    <span class="k">next</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">e</span><span class="o">[</span><span class="s2">&#34;items&#34;</span><span class="o">].</span><span class="n">is_a?</span><span class="p">(</span><span class="nb">Array</span><span class="p">)</span>
+    <span class="k">next</span> <span class="k">if</span> <span class="n">e</span><span class="o">[</span><span class="s2">&#34;items&#34;</span><span class="o">][</span><span class="mi">0</span><span class="o">].</span><span class="n">is_a?</span><span class="p">(</span><span class="nb">String</span><span class="p">)</span>
+
+    <span class="n">e</span><span class="o">[</span><span class="s2">&#34;new_items&#34;</span><span class="o">]</span> <span class="o">=</span> <span class="n">e</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="s2">&#34;items&#34;</span><span class="p">)</span>
+    <span class="n">event</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="s2">&#34;[</span><span class="si">#{</span><span class="vi">@source_field</span><span class="si">}</span><span class="s2">][</span><span class="si">#{</span><span class="n">idx</span><span class="si">}</span><span class="s2">]&#34;</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="k">return</span> <span class="o">[</span><span class="n">event</span><span class="o">]</span>
+<span class="k">end</span>
+
+
+<span class="nb">test</span> <span class="s2">&#34;when field doesn&#39;t exist&#34;</span> <span class="k">do</span>
+  <span class="n">parameters</span> <span class="p">{</span> <span class="p">{</span> <span class="s2">&#34;source_field&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;arr&#34;</span> <span class="p">}</span> <span class="p">}</span>
+  <span class="n">in_event</span> <span class="p">{</span> <span class="p">{</span> <span class="s2">&#34;word&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;hello&#34;</span> <span class="p">}</span> <span class="p">}</span>
+  <span class="n">expect</span><span class="p">(</span><span class="s2">&#34;tags as not found&#34;</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">arr</span><span class="o">|</span> <span class="n">arr</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;tags&#34;</span><span class="p">)</span><span class="o">.</span><span class="n">include?</span><span class="p">(</span><span class="s2">&#34;arr_not_found&#34;</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="nb">test</span> <span class="s2">&#34;when field does exist but not have items&#34;</span> <span class="k">do</span>
+  <span class="n">parameters</span> <span class="p">{</span> <span class="p">{</span> <span class="s2">&#34;source_field&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;arr&#34;</span> <span class="p">}</span> <span class="p">}</span>
+  <span class="n">in_event</span> <span class="k">do</span> 
+    <span class="p">{</span> 
+        <span class="s2">&#34;arr&#34;</span> <span class="o">=&gt;</span> <span class="nb">Array</span><span class="o">[</span>
+            <span class="p">{</span> <span class="s2">&#34;x&#34;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&#34;y&#34;</span> <span class="o">=&gt;</span> <span class="mi">10</span> <span class="p">}</span>
+        <span class="o">]</span>
+    <span class="p">}</span> 
+  <span class="k">end</span>
+  <span class="n">expect</span><span class="p">(</span><span class="s2">&#34;event skipped&#34;</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">arr</span><span class="o">|</span> <span class="n">arr</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;arr&#34;</span><span class="p">)</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="s2">&#34;new_items&#34;</span><span class="o">].</span><span class="n">nil?</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="nb">test</span> <span class="s2">&#34;when field does exist&#34;</span> <span class="k">do</span>
+  <span class="n">parameters</span> <span class="p">{</span> <span class="p">{</span> <span class="s2">&#34;source_field&#34;</span> <span class="o">=&gt;</span> <span class="s2">&#34;arr&#34;</span> <span class="p">}</span> <span class="p">}</span>
+  <span class="n">in_event</span> <span class="k">do</span> 
+    <span class="p">{</span> 
+        <span class="s2">&#34;arr&#34;</span> <span class="o">=&gt;</span> <span class="nb">Array</span><span class="o">[</span>
+            <span class="p">{</span> <span class="s2">&#34;items&#34;</span> <span class="o">=&gt;</span> <span class="nb">Array</span><span class="o">[</span>
+                <span class="p">{</span> <span class="s2">&#34;x&#34;</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&#34;y&#34;</span> <span class="o">=&gt;</span> <span class="mi">10</span> <span class="p">}</span>
+              <span class="o">]</span>
+            <span class="p">}</span>
+        <span class="o">]</span>
+    <span class="p">}</span> 
+  <span class="k">end</span>
+  <span class="n">expect</span><span class="p">(</span><span class="s2">&#34;event proccessed&#34;</span><span class="p">)</span> <span class="p">{</span><span class="o">|</span><span class="n">arr</span><span class="o">|</span> <span class="ow">not</span> <span class="n">arr</span><span class="o">.</span><span class="n">first</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&#34;arr&#34;</span><span class="p">)</span><span class="o">[</span><span class="mi">0</span><span class="o">][</span><span class="s2">&#34;new_items&#34;</span><span class="o">].</span><span class="n">nil?</span> <span class="p">}</span>
+<span class="k">end</span>
+
+</code></pre></td></tr></table>
+</div>
+</div><p>logstash的配置</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-fallback" data-lang="fallback">filter {
+  if [type] == &#34;YOUR_TYPE&#34; {
+    ruby {
+      path =&gt; &#34;YOUR_FILTER_DIR/rename.rb&#34;
+      script_params =&gt; { &#34;source_field&#34; =&gt; &#34;arr&#34; }
+    }
+}
+</code></pre></td></tr></table>
+</div>
+</div><p>启动logstash来调试, logstash会自动的执行我们脚本内定义的测试用例, 可以在日志内观察其测试结果:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>2020-03-25T15:32:08,952<span class="o">][</span>INFO <span class="o">][</span>logstash.filters.ruby.script<span class="o">]</span> Test run <span class="nb">complete</span> <span class="o">{</span>:script_path<span class="o">=</span>&gt;<span class="s2">&#34;/etc/logstash/ruby_filters/rename.rb&#34;</span>, :results<span class="o">=</span>&gt;<span class="o">{</span>:passed<span class="o">=</span>&gt;3, :failed<span class="o">=</span>&gt;0, :errored<span class="o">=</span>&gt;0<span class="o">}}</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>最后加上一些实际的input文件测试OK后, 就可以顺利的部署到线上logstash集群解决不兼容的问题.</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Z10N0110</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2020-03-19
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/logstash/">logstash</a>
+          <a href="/tags/elasticsearch/">elasticsearch</a>
+          <a href="/tags/ruby/">ruby</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/bcache/">
+            <span class="next-text nav-default">Bcache</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="l3aaapl@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/Z10N0110" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Z10N0110</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

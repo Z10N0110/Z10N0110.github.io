@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>gitlab 笔记 - 呓语</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Z10N0110" /><meta name="description" content="gitlab notes" /><meta name="keywords" content="gitlab, omnibus" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.68.1 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/gitlab/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+<link href="/dist/even.c2a46f00.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="gitlab 笔记" />
+<meta property="og:description" content="gitlab notes" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/gitlab/" />
+<meta property="article:published_time" content="2017-04-09T00:00:00+00:00" />
+<meta property="article:modified_time" content="2017-04-16T00:49:00+08:00" />
+<meta itemprop="name" content="gitlab 笔记">
+<meta itemprop="description" content="gitlab notes">
+<meta itemprop="datePublished" content="2017-04-09T00:00:00&#43;00:00" />
+<meta itemprop="dateModified" content="2017-04-16T00:49:00&#43;08:00" />
+<meta itemprop="wordCount" content="8659">
+
+
+
+<meta itemprop="keywords" content="gitlab,omnibus," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="gitlab 笔记"/>
+<meta name="twitter:description" content="gitlab notes"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Z10N0110</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/links/">
+        <li class="mobile-menu-item">Links</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+</nav>
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Z10N0110</a>
+</div>
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/links/">Links</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">gitlab 笔记</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2017-04-16 </span>
+        <div class="post-category">
+            <a href="/categories/gitlab/"> gitlab </a>
+            </div>
+          <span class="more-meta"> 约 8659 字 </span>
+          <span class="more-meta"> 预计阅读 18 分钟 </span>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#gitlab-ce">gitlab-ce</a>
+      <ul>
+        <li><a href="#install">install</a></li>
+        <li><a href="#config">config</a></li>
+        <li><a href="#upgrade">upgrade</a></li>
+        <li><a href="#manage">manage</a></li>
+        <li><a href="#backup">backup</a></li>
+        <li><a href="#restore">restore</a></li>
+        <li><a href="#useage">useage</a></li>
+      </ul>
+    </li>
+    <li><a href="#gitlab-ci-multi-runner">gitlab-ci-multi-runner</a>
+      <ul>
+        <li><a href="#install-1">install</a></li>
+        <li><a href="#config-1">config</a></li>
+        <li><a href="#useage-1">useage</a></li>
+      </ul>
+    </li>
+    <li><a href="#trouble-shooting">trouble shooting</a>
+      <ul>
+        <li><a href="#gitlab-ce-backup-restore-hint">gitlab-ce backup-restore hint</a></li>
+        <li><a href="#ci-runner-exec-sigabrt">ci-runner exec SIGABRT</a></li>
+      </ul>
+    </li>
+    <li><a href="#tips">Tips</a>
+      <ul>
+        <li><a href="#omnibus-default-storage-dirs">omnibus default storage dirs</a></li>
+        <li><a href="#rest-root-password">rest root password</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>记录 <code>gitlab-ce</code> 与  <code>gitlab-ci-multi-runner</code> 的安装,配置与管理</p>
+<p>以下安装全部使用 <code>omnibus</code></p>
+<blockquote>
+<p><a href="http://doc.gitlab.com/omnibus/">Omnibus GitLab documentation</a></p>
+<p><a href="https://doc.gitlab.cc/omnibus/README.html">Omnibus GitLab documentationi(中文)</a></p>
+</blockquote>
+<h2 id="gitlab-ce">gitlab-ce</h2>
+<h3 id="install">install</h3>
+<blockquote>
+<p>关于硬件要求, 根据gitlab的官方页面描述, 基本使用gitlab需要至少2G的内存, 否则容易出现502等问题</p>
+</blockquote>
+<p>gitlab安装使用官方提供的捆绑版(官方叫 <code>Omnibus Packages</code>)</p>
+<p>此包大约300~400M, 内置了(以gitlab8举例):</p>
+<ul>
+<li>postgresql</li>
+<li>redis</li>
+<li>nginx</li>
+<li>sidekiq</li>
+<li>unicorn</li>
+<li>logrotate</li>
+<li>gitlab-workhorse</li>
+</ul>
+<p>安装过程非常简单, wget一个根据Linux distro添加源仓库的脚本, 然后install</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># CentOS6</span>
+curl -sS https://packages.gitlab.com/install/repositories/gitlab/gitlab-ce/script.rpm.sh <span class="p">|</span> sudo bash
+</code></pre></td></tr></table>
+</div>
+</div><p>或者你也可以直接下载rpm包后再安装, 目前由 <code>package cloud</code> 托管, 地址<a href="https://packages.gitlab.com/gitlab">omnibus</a>, 历史版本可以在<a href="https://about.gitlab.com/downloads/archives/">这里</a>找到</p>
+<blockquote>
+<p>gitlab官网上有列出china mirror, 比如这个: <a href="https://mirror.tuna.tsinghua.edu.cn/help/gitlab-ce/">清华大学开源软件镜像站镜像</a></p>
+</blockquote>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># CentOS6</span>
+curl -LJO https://packages.gitlab.com/gitlab/gitlab-ce/packages/el/6/gitlab-ce-XXX.rpm/download
+rpm -i gitlab-ce-XXX.rpm
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="config">config</h3>
+<p>安装完毕后,还需要对gitlab进行各个项目的配置,如系统本身的url地址,邮箱的设置,nginx的配置等等</p>
+<p>在omnibus中, gitlab使用了chef playbook来执行这一个复杂的聚合系统配置的设置与修改 (gitlab-ctl reconfigure命令)</p>
+<p>gitlab-ctl reconfigure调用的chef将会读取一个模板变量文件 <code>/etc/gitlab/gitlab.rb</code> 来实现配置整个系统中各个程序配置文件.</p>
+<p>默认此文件将在安装完毕后自动复制到/etc/gitlab(默认不覆盖原有), 整个系统各项组件的配置设置在此文件内都有默认注释与说明, 可以按需要修改默认设置值</p>
+<blockquote>
+<p>官方对配置文件内选项的详细文档：<a href="http://doc.gitlab.com/omnibus/settings/configuration.html">Configuration options</a></p>
+<p>包含完整注释与配置的默认模板: <a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/files/gitlab-config-template/gitlab.rb.template">gitlab.rb.template</a></p>
+</blockquote>
+<ul>
+<li>为了让gitlab正常实现通知, 首先需要修改smtp相关配置:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_enable&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_address&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;YOUR_SMTP_HOST&#34;</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_port&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="no">YOUR_SMTP_PORT</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_user_name&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;YOUR@YOUR_DOMAIN&#34;</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_password&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;YOUR_PW&#34;</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_domain&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;YOUR_DOMAIN&#34;</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_authentication&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;login&#34;</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_enable_starttls_auto&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">false</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;smtp_tls&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="kp">false</span>
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>修改init时web界面的root密码:</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-ruby" data-lang="ruby"><span class="c1"># Change the initial default admin password.</span>
+<span class="c1"># Only applicable on inital setup, changing this setting after database is created and seeded</span>
+<span class="c1"># won&#39;t yield any change.</span>
+<span class="n">gitlab_rails</span><span class="o">[</span><span class="s1">&#39;initial_root_password&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s2">&#34;12345678&#34;</span>        
+</code></pre></td></tr></table>
+</div>
+</div><p>配置好此文件后,就可以开始调用chef生成各个程序的config.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ gitlab-ctl reconfigure
+</code></pre></td></tr></table>
+</div>
+</div><p>这个命令是所有配置的变更入口, 在修改了 <code>gitlab.rb</code> 内的设置后(如更换了smtp邮件服务器的账户密码), 只需要直接执行此命令, 就会生成新的配置文件, 并自动重启gitlab必要的组件</p>
+<blockquote>
+<p>对于全新安装,安装完毕会有提示</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@t8 ~<span class="o">]</span><span class="c1"># rpm -ivh gitlab-ce-8.3.4-ce.0.el6.x86_64.rpm</span> 
+Preparing...                <span class="c1">########################################### [100%]</span>
+   1:gitlab-ce              <span class="c1">########################################### [100%]</span>
+hostname: 主机名搜索失败
+gitlab: Thank you <span class="k">for</span> installing GitLab!
+gitlab: To configure and start GitLab, RUN THE FOLLOWING COMMAND:
+
+sudo gitlab-ctl reconfigure
+
+gitlab: GitLab should be reachable at http://gitlab.example.com
+gitlab: Otherwise configure GitLab <span class="k">for</span> your system by editing /etc/gitlab/gitlab.rb file
+gitlab: And running reconfigure again.
+gitlab: 
+gitlab: For a comprehensive list of configuration options please see the Omnibus GitLab readme
+gitlab: https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md
+gitlab: 
+It looks like GitLab has not been configured yet<span class="p">;</span> skipping the upgrade script.
+</code></pre></td></tr></table>
+</div>
+</div><p>根据上面脚本的提示,如果为升级安装,会自动执行 gitlab-ctl upgrade升级配置,详见下面upgrade章节</p>
+</blockquote>
+<h3 id="upgrade">upgrade</h3>
+<p>建议配合下面的 <code>backup</code> 与 <code>restore</code> 章节阅读</p>
+<blockquote>
+<p><a href="http://doc.gitlab.com/omnibus/update/README.html">Updating GitLab via omnibus-gitlab</a></p>
+<p><a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/update/README.md">update/README.md</a></p>
+<p>非omnibus安装的可以参考 <a href="https://github.com/gitlabhq/omnibus-gitlab/tree/master/doc/update">update</a></p>
+</blockquote>
+<p>根据官方文档中描述的, 在 <code>7.10</code> 的版本中加入了一个 <code>gitlab-ctl upgrade</code> 的新命令, 此命令将会在安装新的omnibus包后自动执行以下流程:</p>
+<ul>
+<li>停止所有gitlab服务</li>
+<li>进行一个轻量的数据库的备份(以之前版本的gitlab)</li>
+<li>执行 gtlab-ctl reconfigure,进行一些必须的数据库migrations (以新版gitlab)</li>
+<li>最后执行 gitlab-ctl restart</li>
+</ul>
+<p>所以如果你的gitlab版本低于7.10,需要先升级到7.10后才能继续升级到8.x</p>
+<p>升级步骤仅仅需要安装新的omnibus包即可</p>
+<p>以7.4版本为例</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -qa <span class="p">|</span> grep gitlab
+gitlab-7.4.3_omnibus.5.1.0.ci-1.el6.x86_64
+</code></pre></td></tr></table>
+</div>
+</div><p>首先安装7.10</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -Uvh gitlab-ce-7.10.4~omnibus-1.x86_64.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p>执行reconfigure</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-ctl reconfigure
+</code></pre></td></tr></table>
+</div>
+</div><p>检查gitlabg运行状态, 可以登录web界面检查</p>
+<p>确认无错误后,安装8.x</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">rpm -Uvh gitlab-ce-8.5.4-ce.0.el6.x86_64.rpm
+</code></pre></td></tr></table>
+</div>
+</div><p>接下来安装包会自动执行 gitlab-ctl upgrade 命令</p>
+<p>等待upgrade执行完 reconfigure无误后,升级就完成了</p>
+<h3 id="manage">manage</h3>
+<p>管理gitlab的重启, 停止等, 使用 <code>gitlab-ctl</code> 脚本即可</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-ctl status
+run: gitlab-workhorse: <span class="o">(</span>pid 834<span class="o">)</span> 177321s<span class="p">;</span> run: log: <span class="o">(</span>pid 830<span class="o">)</span> 177321s
+run: logrotate: <span class="o">(</span>pid 52381<span class="o">)</span> 918s<span class="p">;</span> run: log: <span class="o">(</span>pid 827<span class="o">)</span> 177321s
+run: nginx: <span class="o">(</span>pid 835<span class="o">)</span> 177321s<span class="p">;</span> run: log: <span class="o">(</span>pid 831<span class="o">)</span> 177321s
+run: postgresql: <span class="o">(</span>pid 836<span class="o">)</span> 177321s<span class="p">;</span> run: log: <span class="o">(</span>pid 826<span class="o">)</span> 177321s
+run: redis: <span class="o">(</span>pid 832<span class="o">)</span> 177321s<span class="p">;</span> run: log: <span class="o">(</span>pid 825<span class="o">)</span> 177321s
+run: sidekiq: <span class="o">(</span>pid 833<span class="o">)</span> 177321s<span class="p">;</span> run: log: <span class="o">(</span>pid 828<span class="o">)</span> 177321s
+run: unicorn: <span class="o">(</span>pid 837<span class="o">)</span> 177321s<span class="p">;</span> run: log: <span class="o">(</span>pid 829<span class="o">)</span> 177321s
+
+gitlab-ctl restart nginx
+ok: run: nginx: <span class="o">(</span>pid 2322<span class="o">)</span> 0s
+</code></pre></td></tr></table>
+</div>
+</div><p>变量检查</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-rake gitlab:env:info <span class="nv">RAILS_ENV</span><span class="o">=</span>production
+</code></pre></td></tr></table>
+</div>
+</div><p>检查所有模块是否运行正常</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-rake gitlab:check <span class="nv">RAILS_ENV</span><span class="o">=</span>production
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="backup">backup</h3>
+<blockquote>
+<p><a href="http://doc.gitlab.com/ce/raketasks/backup_restore.html#omnibus-installations">backup_restore</a></p>
+<p><a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/README.md#backup-and-restore-omnibus-gitlab-configuration">backup-and-restore-omnibus-gitlab-configuration</a></p>
+<p><a href="https://gitlab.com/gitlab-org/omnibus-gitlab/blob/master/doc/settings/backups.md">backups.md</a></p>
+</blockquote>
+<p>在升级之前,首先需要创建备份并验证是否可以完全回滚至当前gitlab版本</p>
+<p>备份逻辑上可以区分为2个部分:</p>
+<ul>
+<li>gitlab的配置文件</li>
+<li>gitlab的数据文件(db,repo,upload等等)</li>
+</ul>
+<p>备份gitlab当前的配置只需要备份/etc/gitlab文件夹,按照官方的建议,文件夹内不仅存有chef的变量配置文件gitlab.rb,更存有一个密钥文件,用来验证2部验证的数据与ci授权等, 需要妥善的备份保存</p>
+<p>gitlab的数据备份创建非常方便,以下指令创建所有数据的备份：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-rake gitlab:backup:create
+</code></pre></td></tr></table>
+</div>
+</div><h4 id="downtime-backup">downtime backup</h4>
+<p>经过试验, 此命令的执行只需要开启数据库与redis即可(gitlab-ce-8.5):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">$ gitlab-ctl stop
+$ gitlab-ctl start postgresql
+$ gitlab-ctl start redis
+</code></pre></td></tr></table>
+</div>
+</div><p>这意味着可以暂停对外服务来备份</p>
+<p>可以选跳过某些数据,多个选项之间使用逗号分割</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">Available options: 
+db, 
+uploads <span class="o">(</span>attachments<span class="o">)</span>, 
+repositories, 
+builds<span class="o">(</span>CI build output logs<span class="o">)</span>, 
+artifacts <span class="o">(</span>CI build artifacts<span class="o">)</span>, 
+lfs <span class="o">(</span>LFS objects<span class="o">)</span>. 
+Use a comma to specify several options at the same time.
+
+例子:
+gitlab-rake gitlab:backup:create <span class="nv">SKIP</span><span class="o">=</span>repositories
+</code></pre></td></tr></table>
+</div>
+</div><p>备份指令执行完后会得到一个当前时间戳的tar文件</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@dev ~<span class="o">]</span><span class="c1"># gitlab-rake gitlab:backup:create</span>
+Dumping database ... 
+Dumping PostgreSQL database gitlabhq_production ... <span class="o">[</span>DONE<span class="o">]</span>
+<span class="k">done</span>
+Dumping repositories ...
+ * jhs/jhs ... <span class="o">[</span>DONE<span class="o">]</span>
+<span class="k">done</span>
+Dumping uploads ... 
+<span class="k">done</span>
+Dumping builds ... 
+<span class="k">done</span>
+Dumping artifacts ... 
+<span class="k">done</span>
+Dumping lfs objects ... 
+<span class="k">done</span>
+Creating backup archive: 1457532971_gitlab_backup.tar ... <span class="k">done</span>
+Uploading backup archive to remote storage  ... skipped
+Deleting tmp directories ... <span class="k">done</span>
+<span class="k">done</span>
+<span class="k">done</span>
+<span class="k">done</span>
+<span class="k">done</span>
+<span class="k">done</span>
+<span class="k">done</span>
+Deleting old backups ... skipping
+</code></pre></td></tr></table>
+</div>
+</div><p>默认情况下备份的tar文件存在gitlab-rails配置文件内指定的 <code>backup path</code> 路径, 此路径可以通过 /etc/gitlab/gitlab.rb 中的选项来特殊指定</p>
+<pre><code>Backup create will store a tar file in /var/opt/gitlab/backups.
+If you want to store your GitLab backups in a different directory, 
+add the following setting to /etc/gitlab/gitlab.rb and run 
+sudo gitlab-ctl reconfigure:
+
+gitlab_rails['backup_path'] = '/var/opt/gitlab/backups'
+</code></pre>
+<p>如果你不知道当前运行的备份目录位置, 可以查看gitlab-rails的配置文件, 一般位于 /var/opt/gitlab/gitlab-rails/etc/gitlab.yml</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="c"># Backup settings</span><span class="w">
+</span><span class="w"></span><span class="k">backup</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;/var/opt/gitlab/backups&#34;</span><span class="w">   </span><span class="c"># Relative paths are relative to Rails.root (default: tmp/backups/)    </span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>目录下可见</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@dev ~<span class="o">]</span><span class="c1"># ls -lh /var/opt/gitlab/backups/</span>
+总用量 1.7G
+-rw------- <span class="m">1</span> git git 823M 3月   <span class="m">9</span> 20:39 1457516007_gitlab_backup.tar
+-rw------- <span class="m">1</span> git git 823M 3月   <span class="m">9</span> 22:16 1457532971_gitlab_backup.tar
+</code></pre></td></tr></table>
+</div>
+</div><p>备份的tar文件并未加密,可以直接解压或查看</p>
+<ul>
+<li>7.4版本的备份文件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tar tf 1457491785_gitlab_backup.tar
+
+repositories/
+repositories/searchengine/
+repositories/searchengine/es.bundle
+db/
+db/database.sql
+uploads/
+uploads/group/
+uploads/group/avatar/
+uploads/group/avatar/36/
+uploads/group/avatar/36/u_415327912_1286879080_fm_58_s_C0B405739C06EE926B7D78E200003030.jpg
+uploads/mugen/
+uploads/mugen/docs/
+uploads/mugen/docs/997df6cc19/
+uploads/mugen/docs/997df6cc19/邮费.png
+uploads/note/
+uploads/note/attachment/
+uploads/note/attachment/46/
+uploads/note/attachment/46/5825cfca7bcb0a463e6cb2df6b63f6246960afe4.jpg
+uploads/tmp/
+uploads/tmp/1430294117-3330-2422/
+uploads/tmp/1430294117-3330-2422/ssssss.png
+backup_information.yml
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>8.5版本的备份文件</li>
+</ul>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tar tf 1457516007_gitlab_backup.tar
+
+repositories/
+repositories/searchengine/
+repositories/searchengine/es.bundle
+db/
+db/database.sql.gz
+uploads.tar.gz
+builds.tar.gz
+artifacts.tar.gz
+lfs.tar.gz
+backup_information.yml
+</code></pre></td></tr></table>
+</div>
+</div><p>可以很明显的发现备份tar包内的结构,直接含有：</p>
+<ul>
+<li>repositories 文件夹,即git的repo文件夹,一般存放于 /var/opt/gitlab/git-data/</li>
+<li>db的备份数据</li>
+<li>upload 文件夹</li>
+<li>等等</li>
+</ul>
+<p>从上面的目录也可以看出来,8.5的备份结构比 7.4要整洁,将fs-tree结构的目录等都打包成小的压缩包</p>
+<h4 id="manual-data-backup">manual data backup</h4>
+<p>从gitlab实际生产的运维经验来看, 虽然gitlab的备份流程尽力做到自动且可靠, 但我们仍然需要对一些重要的数据, 如 <code>git repo</code> 文件夹进行手动备份.</p>
+<blockquote>
+<p>因为我们为upgrade而做的完整流程测试时就碰见过一次这样的bug:</p>
+<ul>
+<li>备份命令执行成功</li>
+<li>成功生成了备份tar文件</li>
+<li>使用tar还原某个仓库失败</li>
+<li>查看tar文件内的 git repo目录, 发现许多仓库目录为空</li>
+</ul>
+</blockquote>
+<p>首先关闭gitlab的所有服务</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-ctl stop
+</code></pre></td></tr></table>
+</div>
+</div><p>然后直接tar打包git-data</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">tar czf git-repository.tgz -C /var/opt/gitlab/git-data ./
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="restore">restore</h3>
+<p>备份出来的文件只能由相同版本的gitlab来恢复</p>
+<blockquote>
+<p>You can only restore a backup to exactly the same version of GitLab that you created it on</p>
+</blockquote>
+<p>首先我们需要按照之前备份的gitlab配置来初始化一个新的gitlab server</p>
+<p>将事先备份的gitlab的配置复制到/etc/gitlab下,然后确保gitlab安装的版本与产生备份的版本一致后,执行:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-ctl recofigure
+</code></pre></td></tr></table>
+</div>
+</div><p>等待chef脚本执行完毕后,接下来restore备份的数据</p>
+<p>将备份的数据文件放入配置里指定的 <code>backup_path</code> ,如默认的 /var/opt/gitlab/backups/下, 执行命令：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-rake gitlab:backup:restore <span class="nv">BACKUP</span><span class="o">=</span><span class="m">1393513186</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>BACKUP参数后面的数据就是tar包的名字(时间戳), 最后执行一次检查:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-rake gitlab:check <span class="nv">RAILS_ENV</span><span class="o">=</span>production
+</code></pre></td></tr></table>
+</div>
+</div><p>未出现明显error就表明数据恢复没有太大异常</p>
+<p>出现任何问题,查看 :ref:<code>gitlab_backup_restore_hint</code></p>
+<h3 id="useage">useage</h3>
+<p>mail通知的规则如下:</p>
+<ul>
+<li>
+<p>self规则：自己创建的issues,指派给自己的时候是不会有邮件提醒的,自己在此issuses里写comments也是不会有邮件提醒的。</p>
+</li>
+<li>
+<p>subscribe开关：非指派的issues 可以进去点击subscribe按钮,这样以后就可以接收到邮件通知了</p>
+</li>
+<li>
+<p>@功能：issues里还有@个功能,具体如下：</p>
+<ul>
+<li>在issuse建立的时候 描述里如果有@用户,这将会开启此issues对被@的用户的subscribe开关</li>
+<li>issues建立描述没有@用户,但是评论里被@的用户,也会开启此issues对被@的用户的subscribe开关</li>
+<li>被@的用户可以unsubscribe掉这个issue,后续就不会收到任何通知</li>
+<li>类似self规则,描述里,评论里自己@自己也不会有邮件通知。</li>
+</ul>
+</li>
+</ul>
+<p>在每个项目的设置里还可以开启 <code>Builds emails</code> 选项,
+需要在 <code>recipients</code> 内手动填写需要发送的email地址</p>
+<h4 id="background-jobs">background jobs</h4>
+<p>gitlab有些动作是异步的(async),队列分别有:</p>
+<ul>
+<li>default</li>
+<li>gitlab_shell</li>
+<li>mailers</li>
+<li>project_web_hook</li>
+</ul>
+<p>Omnibus中gitlab默认使用Sidekiq来执行</p>
+<p>此类任务个在web界面上admin界面的 <code>background jobs</code> 选项中可以查看具体情况</p>
+<h2 id="gitlab-ci-multi-runner">gitlab-ci-multi-runner</h2>
+<p>在gitlab-ce 8中已经内嵌了gitlab-ci的支持,gitlab使用了一个独立的程序来处理ci的trigger动作: <code>gitlab-ci-multi-runner</code></p>
+<p><code>gitlab-ci-multi-runner</code> 用golang写成,文档在以porject的方式放在gitlab官网</p>
+<p>各文档总入口 <a href="https://gitlab.com/gitlab-org/gitlab-ci-multi-runner">gitlab-ci-multi-runner</a></p>
+<h3 id="install-1">install</h3>
+<p>同样使用添加源安装:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># For Debian/Ubuntu</span>
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.deb.sh <span class="p">|</span> sudo bash
+apt-get install gitlab-ci-multi-runner
+
+<span class="c1"># For CentOS</span>
+curl -L https://packages.gitlab.com/install/repositories/runner/gitlab-ci-multi-runner/script.rpm.sh <span class="p">|</span> sudo bash
+yum install gitlab-ci-multi-runner
+</code></pre></td></tr></table>
+</div>
+</div><p>或直接下载rpm包后再安装, 依然由package cloud托管 <a href="https://packages.gitlab.com/runner">https://packages.gitlab.com/runner</a></p>
+<h3 id="config-1">config</h3>
+<p>runner具有几种不同功能的执行器:</p>
+<ul>
+<li>docker</li>
+<li>docker-ssh</li>
+<li>ssh</li>
+<li>shell</li>
+<li>parallels</li>
+</ul>
+<p>使用runner需要先向gitlab进行注册</p>
+<p>runner可以配置为全局或专属某个repo,只需要在web控制台获取到 <code>ci token</code> 并在注册时指定即可</p>
+<p>全局的 <code>ci token</code> 在 <code>admin area</code> 的 <code>runner</code> 选项里(需要使用root登录)</p>
+<p>项目自身的 <code>ci token</code> 在项目的 <code>setting</code> 的 <code>runner</code> 栏</p>
+<p>在gitlab-ce已经安装并初始化运行后</p>
+<p>查看全局的 <code>ci token</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="o">[</span>root@as-test ~<span class="o">]</span><span class="c1"># gitlab-ci-multi-runner register</span>
+Please enter the gitlab-ci coordinator URL <span class="o">(</span>e.g. https://gitlab.com/ci<span class="o">)</span>:
+http://192.168.0.252/ci
+Please enter the gitlab-ci token <span class="k">for</span> this runner:
+JWs2WmxGPqPWTUrLSAH9
+Please enter the gitlab-ci description <span class="k">for</span> this runner:
+<span class="o">[</span>as-test<span class="o">]</span>: globa-runner
+Please enter the gitlab-ci tags <span class="k">for</span> this runner <span class="o">(</span>comma separated<span class="o">)</span>:
+global-runner
+INFO<span class="o">[</span>0041<span class="o">]</span> JWs2WmxG Registering runner... succeeded     
+Please enter the executor: docker, docker-ssh, ssh, shell, parallels:
+ssh
+Please enter the SSH server address <span class="o">(</span>eg. my.server.com<span class="o">)</span>:
+127.0.0.1
+Please enter the SSH server port <span class="o">(</span>eg. 22<span class="o">)</span>:
+<span class="m">22</span>
+Please enter the SSH user <span class="o">(</span>eg. root<span class="o">)</span>:
+root
+Please enter the SSH password <span class="o">(</span>eg. docker.io<span class="o">)</span>:
+asdfasdfasdfa   
+Please enter path to SSH identity file <span class="o">(</span>eg. /home/user/.ssh/id_rsa<span class="o">)</span>:
+
+INFO<span class="o">[</span>0106<span class="o">]</span> Runner registered successfully. Feel free to start it, but <span class="k">if</span> it<span class="err">&#39;</span>s running already the config should be automatically reloaded! 
+</code></pre></td></tr></table>
+</div>
+</div><p>注册runner非常的简单, 这里直接放官网文档上的摘抄</p>
+<pre><code>Register the runner:
+
+sudo gitlab-ci-multi-runner register
+
+Please enter the gitlab-ci coordinator URL (e.g. https://gitlab.com/ci )
+https://gitlab.com/ci
+Please enter the gitlab-ci token for this runner
+xxx
+Please enter the gitlab-ci description for this runner
+my-runner
+INFO[0034] fcf5c619 Registering runner... succeeded
+Please enter the executor: shell, docker, docker-ssh, ssh?
+docker
+Please enter the Docker image (eg. ruby:2.1):
+ruby:2.1
+INFO[0037] Runner registered successfully. Feel free to start it, but if it's
+running already the config should be automatically reloaded!
+</code></pre>
+<p>注册执行的主要动作为:</p>
+<ul>
+<li>将输入的各种变量配置组织成 gitlab-ci-multi-runner的配置文件并写入</li>
+<li>启动 gitlab-ci-multi-runner,由程序向 gitlab-ce 进行注册</li>
+</ul>
+<p>使用ps查看可以看见程序实体及args line,通常都显示为:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">/usr/bin/gitlab-ci-multi-runner run --working-directory /home/gitlab-runner --config /etc/gitlab-runner/config.toml --service gitlab-runner --user gitlab-runner --syslog
+</code></pre></td></tr></table>
+</div>
+</div><p>可以看见 <code>--config</code> 命令后的配置文件 &ndash; <code>/etc/gitlab-runner/config.toml</code> ,使用 <code>gitlab-runner</code> 用户等等参数</p>
+<p>实际上, 在注册成功并成功生成了配置文件后, gitlab-ci会在 <code>/etc/init.d/</code> 下生成一个system-v的脚本 <code>gitlab-runner</code>,  里面简单的设置了启动gitlab-ci-multi-runner的参数</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/sh
+</span><span class="cp"></span><span class="c1"># For RedHat and cousins:</span>
+<span class="c1"># chkconfig: - 99 01</span>
+<span class="c1"># description: GitLab Runner</span>
+<span class="c1"># processname: /usr/bin/gitlab-ci-multi-runner</span>
+ 
+<span class="c1"># Source function library.</span>
+. /etc/rc.d/init.d/functions
+
+<span class="nv">name</span><span class="o">=</span><span class="s2">&#34;gitlab-runner&#34;</span>
+<span class="nv">desc</span><span class="o">=</span><span class="s2">&#34;GitLab Runner&#34;</span>
+<span class="nv">user</span><span class="o">=</span><span class="s2">&#34;root&#34;</span>
+<span class="nv">cmd</span><span class="o">=</span>/usr/bin/gitlab-ci-multi-runner
+<span class="nv">args</span><span class="o">=</span><span class="s2">&#34; &#34;</span>run<span class="s2">&#34; &#34;</span>--working-directory<span class="s2">&#34; &#34;</span>/home/gitlab-runner<span class="s2">&#34; &#34;</span>--config<span class="s2">&#34; &#34;</span>/etc/gitlab-runner/config.toml<span class="s2">&#34; &#34;</span>--service<span class="s2">&#34; &#34;</span>gitlab-runner<span class="s2">&#34; &#34;</span>--user<span class="s2">&#34; &#34;</span>gitlab-runner<span class="s2">&#34; &#34;</span>--syslog<span class="s2">&#34;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>可以使用命令 <code>gitlab-runner install</code> 来修改这些参数</p>
+<p>配置文件 <code>/etc/gitlab-runner/config.toml</code> 的内容:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml">concurrent<span class="w"> </span>=<span class="w"> </span><span class="m">1</span><span class="w"> 
+</span><span class="w">
+</span><span class="w"></span><span class="p">[[</span>runners<span class="p">]]</span><span class="w">
+</span><span class="w">  </span>url<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;http://192.168.0.252/ci&#34;</span><span class="w">
+</span><span class="w">  </span>token<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;0349d516c8bc224bae1981434930d2&#34;</span><span class="w">
+</span><span class="w">  </span>tls-skip-verify<span class="w"> </span>=<span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span>tls-ca-file<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">  </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;runner1&#34;</span><span class="w">
+</span><span class="w">  </span>executor<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;shell&#34;</span><span class="w">
+</span><span class="w">  </span><span class="p">[</span>runners.ssh<span class="p">]</span><span class="w">
+</span><span class="w">  </span><span class="p">[</span>runners.docker<span class="p">]</span><span class="w">
+</span><span class="w">    </span>image<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">    </span>privileged<span class="w"> </span>=<span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span><span class="p">[</span>runners.parallels<span class="p">]</span><span class="w">
+</span><span class="w">    </span>base_name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="p">[[</span>runners<span class="p">]]</span><span class="w">
+</span><span class="w">  </span>url<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;http://192.168.0.252/ci&#34;</span><span class="w">
+</span><span class="w">  </span>token<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;9b2997bf132f6d7b69fe521bcf5a60&#34;</span><span class="w">
+</span><span class="w">  </span>tls-skip-verify<span class="w"> </span>=<span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="w">  </span>tls-ca-file<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;&#34;</span><span class="w">
+</span><span class="w">  </span>name<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;globa-runner&#34;</span><span class="w">
+</span><span class="w">  </span>executor<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;ssh&#34;</span><span class="w">
+</span><span class="w">  </span><span class="p">[</span>runners.ssh<span class="p">]</span><span class="w">
+</span><span class="w">    </span>user<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;root&#34;</span><span class="w">
+</span><span class="w">    </span>password<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;adfasdfasdfa&#34;</span><span class="w">
+</span><span class="w">    </span>host<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;127.0.0.1&#34;</span><span class="w">
+</span><span class="w">    </span>port<span class="w"> </span>=<span class="w"> </span><span class="s2">&#34;22&#34;</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>上面显示了2个executor不同的runner, 分别为 shell 与 ssh</p>
+<h3 id="useage-1">useage</h3>
+<p>gitlab-ci 的使用采用了yml文件配置的形式,只要在项目里添加上一个 <code>.gitlab-ci.yml</code> 文件后,每次push到gitlab就会触发ci的trigger</p>
+<p>然后根据文件内指定的配置动作调用runner去执行.</p>
+<p>可以直接看官网的2篇文档:</p>
+<ul>
+<li><a href="http://doc.gitlab.com/ce/ci/quick_start/README.html">CI Quick Start</a></li>
+<li><a href="http://doc.gitlab.com/ce/ci/yaml/README.html">Configuration of your builds with .gitlab-ci.yml</a></li>
+</ul>
+<blockquote>
+<p>官方一篇blog <a href="https://about.gitlab.com/2015/05/06/why-were-replacing-gitlab-ci-jobs-with-gitlab-ci-dot-yml/">Why we&rsquo;re replacing GitLab CI jobs with .gitlab-ci.yml</a> 解释了为什么在 <code>gitlab8</code> 中抛弃了以前ci的语法改用了 <code>.gitlab-ci.yml</code></p>
+</blockquote>
+<p>这里给出一个配置的例子</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">variables</span><span class="p">:</span><span class="w"> </span><span class="c"># 设置环境变量</span><span class="w">
+</span><span class="w">  </span><span class="k">REPO_TYPE</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;master&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">stages</span><span class="p">:</span><span class="w"> </span><span class="c"># 按名字组织一个顺序</span><span class="w">
+</span><span class="w">  </span>- build<span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">job_master</span><span class="p">:</span><span class="w"> </span><span class="c"># job的名字</span><span class="w">
+</span><span class="w">  </span><span class="k">script</span><span class="p">:</span><span class="w"> </span><span class="c"># 执行的脚本</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;/home/go.sh&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">stage</span><span class="p">:</span><span class="w"> </span>build<span class="w"> </span><span class="c"># 指定在哪个顺序阶段执行这个job</span><span class="w">
+</span><span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w"> </span><span class="c"># only用来指定branch限制,这里只有master才会执行这个job</span><span class="w">
+</span><span class="w">    </span>- master<span class="w">
+</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w"> </span><span class="c"># 指定执行这个job的runner的tag</span><span class="w">
+</span><span class="w">    </span>- golang<span class="w">
+</span><span class="w">  </span><span class="k">allow_failure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>gitlab CI 与其他类似CI同样带有默认变量: <a href="https://docs.gitlab.com/ce/ci/variables/">CI variables</a></p>
+<p>一般常用的为判断repo名字的 <code>CI_BUILD_REF_NAME</code> 与 commit版本号的 <code>CI_BUILD_REF</code></p>
+<h2 id="trouble-shooting">trouble shooting</h2>
+<p>常见疑难指南</p>
+<h3 id="gitlab-ce-backup-restore-hint">gitlab-ce backup-restore hint</h3>
+<blockquote>
+<p><a href="https://github.com/gitlabhq/gitlab-public-wiki/wiki/Trouble-Shooting-Guide">Trouble Shooting Guide</a></p>
+<p><a href="http://doc.gitlab.com/ce/raketasks/maintenance.html">maintenance</a></p>
+</blockquote>
+<p>gitlab 执行restore的执行步骤如下：</p>
+<ol>
+<li>还原db</li>
+<li>还原git repo</li>
+<li>还原upload</li>
+<li>还原build</li>
+<li>还原xxx</li>
+</ol>
+<p>以某一些仓库还原失败的步骤为例, 我们需要手动将备份tar手动解压, 然后将其中的整个repositories文件夹拷贝到指定的git-data目录 <code>/var/opt/gitlab/git-data/</code></p>
+<blockquote>
+<p>理论上其他如upload文件夹都可按照此类处理(待查证)</p>
+</blockquote>
+<p>还有可能在还原中, 仓库项目创建satellites时提示项目目录为空(在小于8.0的版本), 意味着git repo内此项目的损坏, 原因可能为:</p>
+<ul>
+<li>
+<p>git项目为空 &ndash;&gt; 可能是satellites目录没有在恢复git repo文件系统时正确生成</p>
+</li>
+<li>
+<p>git repo在restroe的过程中就失败了 &ndash;&gt; git repo文件系统丢失(BUG导致)</p>
+</li>
+</ul>
+<p>这时候就需要使用备份时额外备份的git repo来手动恢复(见上面<code>backup</code>章节), 在gitlab论坛上找到的正确步骤:</p>
+<pre><code>At this point I found all my repositories were 404ing on the files, or appearing empty, so:
+
+1. Recopy repositories scp user@example.com:/home/git/repositories /home/git/repositories
+2. Delete satellites rm -Rf ~/gitlab-satellites
+3. Regenerate satellites bundle exec rake gitlab:satellites:create RAILS_ENV=production
+4. Restart GitLab
+5. Move domain to new server and follow the upgrade guides to ensure the latest version is running
+
+After doing this I now have a working copy of GitLab with all my old data from the old server. Hope this helps anyone else running into the issue. 
+</code></pre>
+<p>git repo恢复后, 在gitlab &lt; 8.0的版本之前, 需要重建satellites:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">gitlab-rake gitlab:satellites:create <span class="nv">RAILS_ENV</span><span class="o">=</span>production
+</code></pre></td></tr></table>
+</div>
+</div><h3 id="ci-runner-exec-sigabrt">ci-runner exec SIGABRT</h3>
+<p>在runner使用shell执行器时, 实际runner会派生一个bash的子进程, 这个bash的子进程会再fork一个bash去执行job指定的脚本,
+并且在退出时给整个进程组发送SIGABRT信号, 导致脚本内一些使用 nohup或 <code>&amp;</code> 的fork进程变为守护进程用法无效.</p>
+<p>需要使用 <code>setsid</code> 来启动需要变为守护进程的命令</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">bash -c <span class="s2">&#34;setsid /var/www/gopath/src/labs.oa.com/rest/rest/rest &gt;/var/log/rest.log 2&gt;/var/log/rest_error.log &amp;&#34;</span>
+<span class="c1"># 或</span>
+setsid bash -c <span class="s2">&#34;/var/www/gopath/src/labs.oa.com/rest/rest/rest &gt;/var/log/rest.log 2&gt;/var/log/rest_error.log &amp;&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>或者也可以使用supervisor来托管进程</p>
+<h4 id="脚本实验">脚本实验</h4>
+<p>我们可以通过一个简单的脚本实验来直白的观察到这个场景是如何被触发的</p>
+<p>第一个脚本 <code>/home/go.sh</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nb">echo</span> <span class="s2">&#34;start fork&#34;</span>
+setsid /home/pp.sh
+pstree -p
+ps axo stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm <span class="p">|</span> egrep <span class="s2">&#34;PGRP  PPID|</span><span class="nv">$$</span><span class="s2">|</span><span class="nv">$PPID</span><span class="s2">&#34;</span> <span class="p">|</span> egrep -v <span class="s1">&#39;grep|ps&#39;</span>                                                                                      
+<span class="nb">echo</span> <span class="s2">&#34;end fork&#34;</span>
+<span class="nb">exit</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>第二个脚本 <code>/home/pp.sh</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="cp">#!/bin/bash
+</span><span class="cp"></span><span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$0</span><span class="s2"> pid is </span><span class="nv">$$</span><span class="s2">&#34;</span>
+<span class="nb">echo</span> <span class="s2">&#34;--------  </span><span class="nv">$0</span><span class="s2">  --------&#34;</span>
+ps axo stat,euid,ruid,tty,tpgid,sess,pgrp,ppid,pid,pcpu,comm <span class="p">|</span> egrep <span class="s2">&#34;PGRP  PPID|</span><span class="nv">$$</span><span class="s2">|</span><span class="nv">$PPID</span><span class="s2">&#34;</span> <span class="p">|</span> egrep -v <span class="s1">&#39;grep|ps&#39;</span>
+<span class="nb">echo</span> <span class="s2">&#34;--------  </span><span class="nv">$0</span><span class="s2">  --------&#34;</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>使用runner本地的测试功能 <code>gitlab-runner exec</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell"><span class="c1"># gitlab-runner exec will clone the current state of the local Git repository.</span> 
+<span class="c1"># Make sure you have committed any changes you want to test beforehand.</span>
+<span class="c1"># For example, the following command will execute the job named tests locally using a shell executor:</span>
+gitlab-runner <span class="nb">exec</span> shell tests
+</code></pre></td></tr></table>
+</div>
+</div><p>.gitlab-ci.yml内容</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-yaml" data-lang="yaml"><span class="k">variables</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">REPO_TYPE</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;master&#34;</span><span class="w">
+</span><span class="w">
+</span><span class="w"></span><span class="k">job_master</span><span class="p">:</span><span class="w">
+</span><span class="w">  </span><span class="k">script</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- <span class="s2">&#34;/home/go.sh&#34;</span><span class="w">
+</span><span class="w">  </span><span class="k">only</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- master<span class="w">
+</span><span class="w">  </span><span class="k">tags</span><span class="p">:</span><span class="w">
+</span><span class="w">    </span>- golang<span class="w">
+</span><span class="w">  </span><span class="k">allow_failure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></code></pre></td></tr></table>
+</div>
+</div><p>使用strace追踪</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">  1
+</span><span class="lnt">  2
+</span><span class="lnt">  3
+</span><span class="lnt">  4
+</span><span class="lnt">  5
+</span><span class="lnt">  6
+</span><span class="lnt">  7
+</span><span class="lnt">  8
+</span><span class="lnt">  9
+</span><span class="lnt"> 10
+</span><span class="lnt"> 11
+</span><span class="lnt"> 12
+</span><span class="lnt"> 13
+</span><span class="lnt"> 14
+</span><span class="lnt"> 15
+</span><span class="lnt"> 16
+</span><span class="lnt"> 17
+</span><span class="lnt"> 18
+</span><span class="lnt"> 19
+</span><span class="lnt"> 20
+</span><span class="lnt"> 21
+</span><span class="lnt"> 22
+</span><span class="lnt"> 23
+</span><span class="lnt"> 24
+</span><span class="lnt"> 25
+</span><span class="lnt"> 26
+</span><span class="lnt"> 27
+</span><span class="lnt"> 28
+</span><span class="lnt"> 29
+</span><span class="lnt"> 30
+</span><span class="lnt"> 31
+</span><span class="lnt"> 32
+</span><span class="lnt"> 33
+</span><span class="lnt"> 34
+</span><span class="lnt"> 35
+</span><span class="lnt"> 36
+</span><span class="lnt"> 37
+</span><span class="lnt"> 38
+</span><span class="lnt"> 39
+</span><span class="lnt"> 40
+</span><span class="lnt"> 41
+</span><span class="lnt"> 42
+</span><span class="lnt"> 43
+</span><span class="lnt"> 44
+</span><span class="lnt"> 45
+</span><span class="lnt"> 46
+</span><span class="lnt"> 47
+</span><span class="lnt"> 48
+</span><span class="lnt"> 49
+</span><span class="lnt"> 50
+</span><span class="lnt"> 51
+</span><span class="lnt"> 52
+</span><span class="lnt"> 53
+</span><span class="lnt"> 54
+</span><span class="lnt"> 55
+</span><span class="lnt"> 56
+</span><span class="lnt"> 57
+</span><span class="lnt"> 58
+</span><span class="lnt"> 59
+</span><span class="lnt"> 60
+</span><span class="lnt"> 61
+</span><span class="lnt"> 62
+</span><span class="lnt"> 63
+</span><span class="lnt"> 64
+</span><span class="lnt"> 65
+</span><span class="lnt"> 66
+</span><span class="lnt"> 67
+</span><span class="lnt"> 68
+</span><span class="lnt"> 69
+</span><span class="lnt"> 70
+</span><span class="lnt"> 71
+</span><span class="lnt"> 72
+</span><span class="lnt"> 73
+</span><span class="lnt"> 74
+</span><span class="lnt"> 75
+</span><span class="lnt"> 76
+</span><span class="lnt"> 77
+</span><span class="lnt"> 78
+</span><span class="lnt"> 79
+</span><span class="lnt"> 80
+</span><span class="lnt"> 81
+</span><span class="lnt"> 82
+</span><span class="lnt"> 83
+</span><span class="lnt"> 84
+</span><span class="lnt"> 85
+</span><span class="lnt"> 86
+</span><span class="lnt"> 87
+</span><span class="lnt"> 88
+</span><span class="lnt"> 89
+</span><span class="lnt"> 90
+</span><span class="lnt"> 91
+</span><span class="lnt"> 92
+</span><span class="lnt"> 93
+</span><span class="lnt"> 94
+</span><span class="lnt"> 95
+</span><span class="lnt"> 96
+</span><span class="lnt"> 97
+</span><span class="lnt"> 98
+</span><span class="lnt"> 99
+</span><span class="lnt">100
+</span><span class="lnt">101
+</span><span class="lnt">102
+</span><span class="lnt">103
+</span><span class="lnt">104
+</span><span class="lnt">105
+</span><span class="lnt">106
+</span><span class="lnt">107
+</span><span class="lnt">108
+</span><span class="lnt">109
+</span><span class="lnt">110
+</span><span class="lnt">111
+</span><span class="lnt">112
+</span><span class="lnt">113
+</span><span class="lnt">114
+</span><span class="lnt">115
+</span><span class="lnt">116
+</span><span class="lnt">117
+</span><span class="lnt">118
+</span><span class="lnt">119
+</span><span class="lnt">120
+</span><span class="lnt">121
+</span><span class="lnt">122
+</span><span class="lnt">123
+</span><span class="lnt">124
+</span><span class="lnt">125
+</span><span class="lnt">126
+</span><span class="lnt">127
+</span><span class="lnt">128
+</span><span class="lnt">129
+</span><span class="lnt">130
+</span><span class="lnt">131
+</span><span class="lnt">132
+</span><span class="lnt">133
+</span><span class="lnt">134
+</span><span class="lnt">135
+</span><span class="lnt">136
+</span><span class="lnt">137
+</span><span class="lnt">138
+</span><span class="lnt">139
+</span><span class="lnt">140
+</span><span class="lnt">141
+</span><span class="lnt">142
+</span><span class="lnt">143
+</span><span class="lnt">144
+</span><span class="lnt">145
+</span><span class="lnt">146
+</span><span class="lnt">147
+</span><span class="lnt">148
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">strace gitlab-runner <span class="nb">exec</span> shell job_master
+
+write<span class="o">(</span>2, <span class="s2">&#34;Using Shell executor...         &#34;</span>..., 70Using Shell executor...                             <span class="nv">build</span><span class="o">=</span><span class="m">1</span>
+<span class="o">)</span> <span class="o">=</span> <span class="m">70</span>
+stat<span class="o">(</span><span class="s2">&#34;/usr/local/sbin/bash&#34;</span>, 0xc208074120<span class="o">)</span> <span class="o">=</span> -1 ENOENT <span class="o">(</span>No such file or directory<span class="o">)</span>
+stat<span class="o">(</span><span class="s2">&#34;/usr/local/bin/bash&#34;</span>, 0xc208074240<span class="o">)</span> <span class="o">=</span> -1 ENOENT <span class="o">(</span>No such file or directory<span class="o">)</span>
+stat<span class="o">(</span><span class="s2">&#34;/sbin/bash&#34;</span>, 0xc2080742d0<span class="o">)</span>        <span class="o">=</span> -1 ENOENT <span class="o">(</span>No such file or directory<span class="o">)</span>
+stat<span class="o">(</span><span class="s2">&#34;/bin/bash&#34;</span>, <span class="o">{</span><span class="nv">st_mode</span><span class="o">=</span>S_IFREG<span class="p">|</span>0755, <span class="nv">st_size</span><span class="o">=</span>904872, ...<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+clock_gettime<span class="o">(</span>CLOCK_MONOTONIC, <span class="o">{</span>30804, 996288612<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+clock_gettime<span class="o">(</span>CLOCK_MONOTONIC, <span class="o">{</span>30804, 996312229<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+clock_gettime<span class="o">(</span>CLOCK_MONOTONIC, <span class="o">{</span>30804, 996332858<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+pipe2<span class="o">([</span>3, 4<span class="o">]</span>, O_CLOEXEC<span class="o">)</span>                <span class="o">=</span> <span class="m">0</span>
+pipe2<span class="o">([</span>5, 6<span class="o">]</span>, O_CLOEXEC<span class="o">)</span>                <span class="o">=</span> <span class="m">0</span>
+clone<span class="o">(</span><span class="nv">child_stack</span><span class="o">=</span>0, <span class="nv">flags</span><span class="o">=</span>SIGCHLD<span class="o">)</span>     <span class="o">=</span> <span class="m">6657</span>
+close<span class="o">(</span>6<span class="o">)</span>                                <span class="o">=</span> <span class="m">0</span>
+read<span class="o">(</span>5, <span class="s2">&#34;&#34;</span>, 8<span class="o">)</span>                          <span class="o">=</span> <span class="m">0</span>
+close<span class="o">(</span>5<span class="o">)</span>                                <span class="o">=</span> <span class="m">0</span>
+close<span class="o">(</span>3<span class="o">)</span>                                <span class="o">=</span> <span class="m">0</span>
+clock_gettime<span class="o">(</span>CLOCK_MONOTONIC, <span class="o">{</span>30804, 997153905<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+clock_gettime<span class="o">(</span>CLOCK_MONOTONIC, <span class="o">{</span>30804, 997223297<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+write<span class="o">(</span>4, <span class="s2">&#34;#!/usr/bin/env bash\n\nset -eo pip&#34;</span>..., 2918<span class="o">)</span> <span class="o">=</span> <span class="m">2918</span>
+close<span class="o">(</span>4<span class="o">)</span>                                <span class="o">=</span> <span class="m">0</span>
+wait4<span class="o">(</span>6657, Running on VmTest...
+Cloning repository...
+Initialized empty Git repository in /home/labs.oa.com/builds/0/project-1/.git/
+Checking out 290a0f9e as master...
+Note: checking out <span class="s1">&#39;290a0f9e7e5d617d0c3b557ecb7b468f62bb05e5&#39;</span>.
+
+You are in <span class="s1">&#39;detached HEAD&#39;</span> state. You can look around, make experimental
+changes and commit them, and you can discard any commits you make in this
+state without impacting any branches by performing another checkout.
+
+If you want to create a new branch to retain commits you create, you may
+<span class="k">do</span> so <span class="o">(</span>now or later<span class="o">)</span> by using -b with the checkout <span class="nb">command</span> again. Example:
+
+  git checkout -b new_branch_name
+
+HEAD is now at 290a0f9... asdfa
+$ /home/go.sh
+start fork
+/home/pp.sh pid is <span class="m">6676</span>
+--------  /home/pp.sh  --------
+STAT  EUID  RUID TT       TPGID  SESS  PGRP  PPID   PID %CPU COMMAND
+S        <span class="m">0</span>     <span class="m">0</span> pts/1     <span class="m">6645</span>  <span class="m">5276</span>  <span class="m">6657</span>  <span class="m">6674</span>  <span class="m">6675</span>  0.0 go.sh
+Ss       <span class="m">0</span>     <span class="m">0</span> ?           -1  <span class="m">6676</span>  <span class="m">6676</span>  <span class="m">6675</span>  <span class="m">6676</span>  0.0 pp.sh
+--------  /home/pp.sh  --------
+init<span class="o">(</span>1<span class="o">)</span>─┬─auditd<span class="o">(</span>980<span class="o">)</span>───<span class="o">{</span>auditd<span class="o">}(</span>981<span class="o">)</span>
+        ├─crond<span class="o">(</span>1077<span class="o">)</span>
+        ├─dhclient<span class="o">(</span>931<span class="o">)</span>
+        ├─gitlab-ci-multi<span class="o">(</span>21904<span class="o">)</span>─┬─<span class="o">{</span>gitlab-ci-mult<span class="o">}(</span>21906<span class="o">)</span>
+        │                        ├─<span class="o">{</span>gitlab-ci-mult<span class="o">}(</span>21907<span class="o">)</span>
+        │                        ├─<span class="o">{</span>gitlab-ci-mult<span class="o">}(</span>21908<span class="o">)</span>
+        │                        ├─<span class="o">{</span>gitlab-ci-mult<span class="o">}(</span>21909<span class="o">)</span>
+        │                        ├─<span class="o">{</span>gitlab-ci-mult<span class="o">}(</span>21964<span class="o">)</span>
+        │                        └─<span class="o">{</span>gitlab-ci-mult<span class="o">}(</span>21979<span class="o">)</span>
+        ├─mingetty<span class="o">(</span>1090<span class="o">)</span>
+        ├─mingetty<span class="o">(</span>1092<span class="o">)</span>
+        ├─mingetty<span class="o">(</span>1094<span class="o">)</span>
+        ├─mingetty<span class="o">(</span>1096<span class="o">)</span>
+        ├─mingetty<span class="o">(</span>1099<span class="o">)</span>
+        ├─mingetty<span class="o">(</span>1101<span class="o">)</span>
+        ├─rsyslogd<span class="o">(</span>1000<span class="o">)</span>─┬─<span class="o">{</span>rsyslogd<span class="o">}(</span>1001<span class="o">)</span>
+        │                ├─<span class="o">{</span>rsyslogd<span class="o">}(</span>1002<span class="o">)</span>
+        │                └─<span class="o">{</span>rsyslogd<span class="o">}(</span>1003<span class="o">)</span>
+        ├─ruby<span class="o">(</span>829<span class="o">)</span>─┬─ruby<span class="o">(</span>1133<span class="o">)</span>───<span class="o">{</span>ruby<span class="o">}(</span>1137<span class="o">)</span>
+        │           ├─ruby<span class="o">(</span>16513<span class="o">)</span>───<span class="o">{</span>ruby<span class="o">}(</span>16515<span class="o">)</span>
+        │           └─<span class="o">{</span>ruby<span class="o">}(</span>16514<span class="o">)</span>
+        ├─runsvdir<span class="o">(</span>592<span class="o">)</span>─┬─runsv<span class="o">(</span>599<span class="o">)</span>─┬─gitlab-workhors<span class="o">(</span>615<span class="o">)</span>─┬─<span class="o">{</span>gitlab-workhor<span class="o">}(</span>642<span class="o">)</span>
+        │               │            │                      ├─<span class="o">{</span>gitlab-workhor<span class="o">}(</span>643<span class="o">)</span>
+        │               │            │                      ├─<span class="o">{</span>gitlab-workhor<span class="o">}(</span>1147<span class="o">)</span>
+        │               │            │                      ├─<span class="o">{</span>gitlab-workhor<span class="o">}(</span>1797<span class="o">)</span>
+        │               │            │                      ├─<span class="o">{</span>gitlab-workhor<span class="o">}(</span>21852<span class="o">)</span>
+        │               │            │                      └─<span class="o">{</span>gitlab-workhor<span class="o">}(</span>21853<span class="o">)</span>
+        │               │            └─svlogd<span class="o">(</span>612<span class="o">)</span>
+        │               ├─runsv<span class="o">(</span>600<span class="o">)</span>─┬─nginx<span class="o">(</span>611<span class="o">)</span>───nginx<span class="o">(</span>659<span class="o">)</span>
+        │               │            └─svlogd<span class="o">(</span>610<span class="o">)</span>
+        │               ├─runsv<span class="o">(</span>601<span class="o">)</span>─┬─gitlab-logrotat<span class="o">(</span>4084<span class="o">)</span>───sleep<span class="o">(</span>4748<span class="o">)</span>
+        │               │            └─svlogd<span class="o">(</span>606<span class="o">)</span>
+        │               ├─runsv<span class="o">(</span>602<span class="o">)</span>─┬─ruby<span class="o">(</span>616<span class="o">)</span>─┬─<span class="o">{</span>ruby<span class="o">}(</span>725<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1105<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1106<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1107<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1108<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1109<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1110<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1111<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1112<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1113<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1114<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1115<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1116<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1117<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1118<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1119<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1120<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1121<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1122<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1123<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1124<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1125<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1126<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1127<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1128<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1129<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1130<span class="o">)</span>
+        │               │            │           ├─<span class="o">{</span>ruby<span class="o">}(</span>1131<span class="o">)</span>
+        │               │            │           └─<span class="o">{</span>ruby<span class="o">}(</span>1132<span class="o">)</span>
+        │               │            └─svlogd<span class="o">(</span>608<span class="o">)</span>
+        │               ├─runsv<span class="o">(</span>603<span class="o">)</span>─┬─redis-server<span class="o">(</span>614<span class="o">)</span>─┬─<span class="o">{</span>redis-server<span class="o">}(</span>640<span class="o">)</span>
+        │               │            │                   └─<span class="o">{</span>redis-server<span class="o">}(</span>641<span class="o">)</span>
+        │               │            └─svlogd<span class="o">(</span>607<span class="o">)</span>
+        │               ├─runsv<span class="o">(</span>604<span class="o">)</span>─┬─gitlab-unicorn-<span class="o">(</span>617<span class="o">)</span>───sleep<span class="o">(</span>6644<span class="o">)</span>
+        │               │            └─svlogd<span class="o">(</span>613<span class="o">)</span>
+        │               └─runsv<span class="o">(</span>605<span class="o">)</span>─┬─postgres<span class="o">(</span>619<span class="o">)</span>─┬─postgres<span class="o">(</span>674<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>675<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>676<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>677<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>678<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>1104<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>1148<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>12125<span class="o">)</span>
+        │                            │               ├─postgres<span class="o">(</span>12128<span class="o">)</span>
+        │                            │               └─postgres<span class="o">(</span>16516<span class="o">)</span>
+        │                            └─svlogd<span class="o">(</span>609<span class="o">)</span>
+        ├─sshd<span class="o">(</span>1067<span class="o">)</span>─┬─sshd<span class="o">(</span>4254<span class="o">)</span>───bash<span class="o">(</span>4266<span class="o">)</span>
+        │            └─sshd<span class="o">(</span>5263<span class="o">)</span>───bash<span class="o">(</span>5276<span class="o">)</span>───strace<span class="o">(</span>6645<span class="o">)</span>───gitlab-runner<span class="o">(</span>6648<span class="o">)</span>─┬─bash<span class="o">(</span>6657<span class="o">)</span>───bash<span class="o">(</span>6674<span class="o">)</span>───go.sh<span class="o">(</span>6675<span class="o">)</span>───pstree<span class="o">(</span>6680<span class="o">)</span>
+        │                                                                           ├─<span class="o">{</span>gitlab-runner<span class="o">}(</span>6649<span class="o">)</span>
+        │                                                                           ├─<span class="o">{</span>gitlab-runner<span class="o">}(</span>6651<span class="o">)</span>
+        │                                                                           ├─<span class="o">{</span>gitlab-runner<span class="o">}(</span>6652<span class="o">)</span>
+        │                                                                           └─<span class="o">{</span>gitlab-runner<span class="o">}(</span>6653<span class="o">)</span>
+        └─udevd<span class="o">(</span>304<span class="o">)</span>─┬─udevd<span class="o">(</span>536<span class="o">)</span>
+                     └─udevd<span class="o">(</span>1097<span class="o">)</span>
+STAT  EUID  RUID TT       TPGID  SESS  PGRP  PPID   PID %CPU COMMAND
+S        <span class="m">0</span>     <span class="m">0</span> pts/1     <span class="m">6645</span>  <span class="m">5276</span>  <span class="m">6657</span>  <span class="m">6657</span>  <span class="m">6674</span>  0.0 bash
+S        <span class="m">0</span>     <span class="m">0</span> pts/1     <span class="m">6645</span>  <span class="m">5276</span>  <span class="m">6657</span>  <span class="m">6674</span>  <span class="m">6675</span>  0.0 go.sh
+end fork
+<span class="o">[{</span>WIFEXITED<span class="o">(</span>s<span class="o">)</span> <span class="o">&amp;&amp;</span> WEXITSTATUS<span class="o">(</span>s<span class="o">)</span> <span class="o">==</span> 0<span class="o">}]</span>, 0, <span class="o">{</span><span class="nv">ru_utime</span><span class="o">={</span>0, 122981<span class="o">}</span>, <span class="nv">ru_stime</span><span class="o">={</span>0, 152976<span class="o">}</span>, ...<span class="o">})</span> <span class="o">=</span> <span class="m">6657</span>
+--- SIGCHLD <span class="o">{</span><span class="nv">si_signo</span><span class="o">=</span>SIGCHLD, <span class="nv">si_code</span><span class="o">=</span>CLD_EXITED, <span class="nv">si_pid</span><span class="o">=</span>6657, <span class="nv">si_status</span><span class="o">=</span>0, <span class="nv">si_utime</span><span class="o">=</span>0, <span class="nv">si_stime</span><span class="o">=</span>0<span class="o">}</span> ---
+rt_sigreturn<span class="o">()</span>                          <span class="o">=</span> <span class="m">6657</span>
+futex<span class="o">(</span>0x1eb7720, FUTEX_WAKE, 1<span class="o">)</span>         <span class="o">=</span> <span class="m">1</span>
+clock_gettime<span class="o">(</span>CLOCK_REALTIME, <span class="o">{</span>1460040195, 414635046<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+write<span class="o">(</span>2, <span class="s2">&#34;Build succeeded.                &#34;</span>..., 70Build succeeded.                                    <span class="nv">build</span><span class="o">=</span><span class="m">1</span>
+<span class="o">)</span> <span class="o">=</span> <span class="m">70</span>
+clock_gettime<span class="o">(</span>CLOCK_REALTIME, <span class="o">{</span>1460040195, 414770628<span class="o">})</span> <span class="o">=</span> <span class="m">0</span>
+kill<span class="o">(</span>-6657, SIGABRT<span class="o">)</span>                    <span class="o">=</span> -1 ESRCH <span class="o">(</span>No such process<span class="o">)</span>
+close<span class="o">(</span>1<span class="o">)</span>                                <span class="o">=</span> <span class="m">0</span>
+exit_group<span class="o">(</span>0<span class="o">)</span>                           <span class="o">=</span> ?
++++ exited with <span class="m">0</span> +++
+</code></pre></td></tr></table>
+</div>
+</div><p>通过上面stracce的输出, 我们可以发现, gitlab-runner其fork了一个 pid 为 6657 的 bash 进程, 并且其下的所有子进程, 都有同一个进程组PGRP 6657.</p>
+<p>而使用了 setsid 启动的 /home/pp.sh 则脱离了这个进程组, PGRP为 6676, 所以不受最后gitlab-runner的SIGABRT的影响, 并且返回 <code>(No such process)</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kill<span class="o">(</span>-6657, SIGABRT<span class="o">)</span>                    <span class="o">=</span> -1 ESRCH <span class="o">(</span>No such process<span class="o">)</span>
+</code></pre></td></tr></table>
+</div>
+</div><p>假如未使用setsid, 结果会像</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre class="chroma"><code class="language-shell" data-lang="shell">kill<span class="o">(</span>-6657, SIGABRT<span class="o">)</span>                    <span class="o">=</span> <span class="m">0</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id="tips">Tips</h2>
+<h3 id="omnibus-default-storage-dirs">omnibus default storage dirs</h3>
+<blockquote>
+<p>记录了omnibus的一些默认的存储目录位置
+<a href="https://docs.gitlab.com/omnibus/settings/configuration.html#disable-storage-directories-management">disable-storage-directories-management</a></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Default Location</th>
+<th>Permissions</th>
+<th>Ownership</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/var/opt/gitlab/git-data</td>
+<td>0700</td>
+<td>git:root</td>
+<td>Holds repositories directory</td>
+</tr>
+<tr>
+<td>/var/opt/gitlab/git-data/repositories</td>
+<td>2770</td>
+<td>git:git</td>
+<td>Holds git repositories</td>
+</tr>
+<tr>
+<td>/var/opt/gitlab/gitlab-rails/shared</td>
+<td>0751</td>
+<td>git:gitlab-www</td>
+<td>Holds large object directories</td>
+</tr>
+<tr>
+<td>/var/opt/gitlab/gitlab-rails/shared/artifacts</td>
+<td>0700</td>
+<td>git:root</td>
+<td>Holds CI artifacts</td>
+</tr>
+<tr>
+<td>/var/opt/gitlab/gitlab-rails/shared/lfs-objects</td>
+<td>0700</td>
+<td>git:root</td>
+<td>Holds LFS objects</td>
+</tr>
+<tr>
+<td>/var/opt/gitlab/gitlab-rails/uploads</td>
+<td>0700</td>
+<td>git:root</td>
+<td>Holds user attachments</td>
+</tr>
+<tr>
+<td>/var/opt/gitlab/gitlab-rails/shared/pages</td>
+<td>0750</td>
+<td>git:gitlab-www</td>
+<td>Holds user pages</td>
+</tr>
+<tr>
+<td>/var/opt/gitlab/gitlab-ci/builds</td>
+<td>0700</td>
+<td>git:root</td>
+<td>Holds CI build logs</td>
+</tr>
+</tbody>
+</table>
+<h3 id="rest-root-password">rest root password</h3>
+<p>How to reset your root password</p>
+<p>Log into your server with root privileges. Then start a Ruby on Rails console</p>
+<p>Start the console with this command:</p>
+<pre><code>gitlab-rails console production
+</code></pre>
+<p>Wait until the console has loaded.</p>
+<p>There are multiple ways to find your user. You can search for email or username.</p>
+<pre><code>user = User.where(id: 1).first
+</code></pre>
+<p>or</p>
+<pre><code>user = User.find_by(email: 'admin@local.host')
+</code></pre>
+<p>Now you can change your password:</p>
+<pre><code>user.password = 'secret_pass'
+
+user.password_confirmation = 'secret_pass'
+</code></pre>
+<p>It&rsquo;s important that you change both password and password_confirmation to make it work.</p>
+<p>Don&rsquo;t forget to save the changes.</p>
+<pre><code>user.save!
+</code></pre>
+<p>Exit the console and try to login with your new password.</p>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">Z10N0110</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2017-04-16
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/gitlab/">gitlab</a>
+          <a href="/tags/omnibus/">omnibus</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/bcache/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Bcache</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="l3aaapl@gmail.com" class="iconfont icon-email" title="email"></a>
+      <a href="https://github.com/Z10N0110" class="iconfont icon-github" title="github"></a>
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2020
+    <span class="heart">
+      <i class="iconfont icon-heart"></i>
+    </span>
+    <span class="author">Z10N0110</span>
+  </span>
+</div>
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="/dist/even.26188efa.min.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
