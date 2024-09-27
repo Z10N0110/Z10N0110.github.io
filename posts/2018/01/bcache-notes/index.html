@@ -1,0 +1,1581 @@
+<!DOCTYPE html>
+<html lang="zh-cn" dir="ltr" class="scroll-smooth" data-default-appearance="light"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="zh-cn" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>Bcache 小记 &middot; 呓语</title>
+  <meta name="title" content="Bcache 小记 &middot; 呓语" />
+  
+  <meta name="description" content="在 CentOS 7 上的 Bcache 体验之旅" />
+  <meta name="keywords" content="bcache, " />
+  
+  
+  <link rel="canonical" href="/posts/2018/01/bcache-notes/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.67eb0befb1fb57e6528684f3a2ff6e0606a82100504705b66488d54a9f3fda9c2605c9bf3b70163208427288637a7b4d1a168384c1115e417458eae6b44b329c.css"
+    integrity="sha512-Z&#43;sL77H7V&#43;ZShoTzov9uBgaoIQBQRwW2ZIjVSp8/2pwmBcm/O3AWMghCcohjentNGhaDhMERXkF0WOrmtEsynA==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.516a16745bea5a9bd011138d254cc0fd3973cd55ce6e15f3dec763e7c7c2c7448f8fe7b54cca811cb821b0c7e12cd161caace1dd794ac3d34d40937cbcc9ee12.js"
+    integrity="sha512-UWoWdFvqWpvQERONJUzA/TlzzVXObhXz3sdj58fCx0SPj&#43;e1TMqBHLghsMfhLNFhyqzh3XlKw9NNQJN8vMnuEg=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.efbf3b6b987689fffaf2d7b73173d2690c0279a04d444b0537a77d7f4ff6e6d493445400cb0cf56bc0f0f123e19f15394e63cae34e67f069bd013dd5c73df56e.js"
+    integrity="sha512-7787a5h2if/68te3MXPSaQwCeaBNREsFN6d9f0/25tSTRFQAywz1a8Dw8SPhnxU5TmPK405n8Gm9AT3Vxz31bg==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="/posts/2018/01/bcache-notes/">
+  <meta property="og:site_name" content="呓语">
+  <meta property="og:title" content="Bcache 小记">
+  <meta property="og:description" content="在 CentOS 7 上的 Bcache 体验之旅">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2018-01-09T00:00:00+00:00">
+    <meta property="article:modified_time" content="2018-01-09T00:49:00+08:00">
+    <meta property="article:tag" content="Bcache">
+
+  
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Bcache 小记">
+  <meta name="twitter:description" content="在 CentOS 7 上的 Bcache 体验之旅">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "博客",
+    "name": "Bcache 小记",
+    "headline": "Bcache 小记",
+    "description": "在 CentOS 7 上的 Bcache 体验之旅",
+    "abstract": "bcache 是 Linux 内核级别提供的一种缓存方案(要求内核版本 3.",
+    "inLanguage": "zh-cn",
+    "url" : "\/posts\/2018\/01\/bcache-notes\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Z10N0110"
+    },
+    "copyrightYear": "2018",
+    "dateCreated": "2018-01-09T00:49:00\u002b08:00",
+    "datePublished": "2018-01-09T00:00:00\u002b00:00",
+    
+    "dateModified": "2018-01-09T00:49:00\u002b08:00",
+    
+    "keywords": ["bcache"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "2302"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="Z10N0110" />
+  
+  
+  
+  <link href="https://github.com/Z10N0110" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>跳过正文</a>
+  </div>
+  
+  
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    
+    
+    <div>
+        <a href="/" class="flex">
+            <span class="sr-only">呓语</span>
+
+            
+            <img src="/img/avatar.png" width="256" height="256"
+                class="logo max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="呓语" />
+            
+
+        </a>
+    </div>
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">呓语</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        博客
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        关于
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="https://github.com/Z10N0110"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <span >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+    </span>
+    
+    <p class="text-base font-medium" title="">
+        
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            博客
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            关于
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="https://github.com/Z10N0110"  target="_blank"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <div >
+            
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+
+        </div>
+        
+        <p class="text-bg font-bg" title="">
+            
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+ 
+  
+   
+  
+ 
+
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/img/background.svg);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >呓语</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >博客</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/2018/01/bcache-notes/"
+      >Bcache 小记</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      Bcache 小记
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2018-01-09T00:49:00&#43;08:00">2018-01-09</time><span class="px-2 text-primary-500">&middot;</span><span>2302 字</span><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">11 分钟</span><span class="px-2 text-primary-500">&middot;</span>
+
+
+<script type="text/javascript" src="/js/zen-mode.min.63c8a202661f4a2063fdc2706685d668e8ea3da613da2224e9da527e5876e4f53dcac39ab60732626fb4151feae5d430d0cf44731e5d3c726522fcc1519c1547.js" integrity="sha512-Y8iiAmYfSiBj/cJwZoXWaOjqPaYT2iIk6dpSflh25PU9ysOatgcyYm&#43;0FR/q5dQw0M9Ecx5dPHJlIvzBUZwVRw=="></script>
+
+<span class="mb-[2px]">
+    <span id="zen-mode-button"
+          class="text-lg hover:text-primary-500"
+          title=""
+          data-title-i18n-disable=""
+          data-title-i18n-enable="">
+        <span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 50 50" width="50px" height="50px">
+    <path fill="currentColor" d="M 12.980469 4 C 9.1204688 4 5.9804688 7.14 5.9804688 11 L 6 26 L 9.9804688 26 L 9.9804688 11 C 9.9804688 9.35 11.320469 8 12.980469 8 L 40.019531 8 C 41.679531 8 43.019531 9.35 43.019531 11 L 43.019531 39 C 43.019531 40.65 41.679531 42 40.019531 42 L 29 42 C 29 43.54 28.420938 44.94 27.460938 46 L 40.019531 46 C 43.879531 46 47.019531 42.86 47.019531 39 L 47.019531 11 C 47.019531 7.14 43.879531 4 40.019531 4 L 12.980469 4 z M 7 28 C 4.794 28 3 29.794 3 32 L 3 42 C 3 44.206 4.794 46 7 46 L 23 46 C 25.206 46 27 44.206 27 42 L 27 32 C 27 29.794 25.206 28 23 28 L 7 28 z M 7 32 L 23 32 L 23.001953 42 L 7 42 L 7 32 z"/>
+</svg>
+  </span>
+
+</span>
+    </span>
+</span>
+  
+
+  
+  
+</div>
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/bcache/&#34;,'_self');">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Bcache
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+
+      
+
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#install">install</a></li>
+    <li><a href="#bcache-tools">bcache-tools</a></li>
+    <li><a href="#make-bcache">make-bcache</a>
+      <ul>
+        <li><a href="#cache">cache</a></li>
+        <li><a href="#bcakend">bcakend</a></li>
+        <li><a href="#show-real-device">show real device</a></li>
+        <li><a href="#one-step">one step</a></li>
+      </ul>
+    </li>
+    <li><a href="#attach--detach">attach &amp; detach</a>
+      <ul>
+        <li><a href="#attach">attach</a></li>
+        <li><a href="#detach">detach</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache-mode">cache mode</a></li>
+    <li><a href="#stop-bcache">stop bcache</a></li>
+    <li><a href="#bcache-status">bcache-status</a></li>
+    <li><a href="#补充">补充</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    目录
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#install">install</a></li>
+    <li><a href="#bcache-tools">bcache-tools</a></li>
+    <li><a href="#make-bcache">make-bcache</a>
+      <ul>
+        <li><a href="#cache">cache</a></li>
+        <li><a href="#bcakend">bcakend</a></li>
+        <li><a href="#show-real-device">show real device</a></li>
+        <li><a href="#one-step">one step</a></li>
+      </ul>
+    </li>
+    <li><a href="#attach--detach">attach &amp; detach</a>
+      <ul>
+        <li><a href="#attach">attach</a></li>
+        <li><a href="#detach">detach</a></li>
+      </ul>
+    </li>
+    <li><a href="#cache-mode">cache mode</a></li>
+    <li><a href="#stop-bcache">stop bcache</a></li>
+    <li><a href="#bcache-status">bcache-status</a></li>
+    <li><a href="#补充">补充</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          <p><code>bcache</code> 是 Linux 内核级别提供的一种缓存方案(要求内核版本 <code>3.10+</code> 并且内核编译时内部有加入 bcache 支持), 可以使用一个 SSD 的分区或整块硬盘空间作为另一个大容量 HDD 分区的特定缓存来加速 HDD 的随机读写操作.</p>
+<p>下面将记录在 <code>CentOS 7</code> 上安装并配置的实验过程.</p>
+
+
+<h2 class="relative group">install 
+    <div id="install" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#install" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p><code>CentOS 7</code> 官方并未提供 bcache 的模块支持, 可以自己编译 bcache 模块或者使用别人已打包好的 rpm 源.</p>
+<p>自行编译 bcache 模块需要整个 linux kernel source, 使用官方发行版内核来编译模块的话, 根据官方指导获得你需要的版本的 <a href="https://wiki.centos.org/HowTos/I_need_the_Kernel_Source" target="_blank">源码</a></p>
+<p>这里初略概括下根据官方指导的如何 <a href="https://wiki.centos.org/HowTos/BuildingKernelModules" target="_blank">编译模块</a>, 我们这里选择第一种 <code>build *.ko</code> 的方式</p>
+<p>在 kernel 源码目录, 我们首先需要获取你期望编译的 kernel 版本的 <code>kernel configuration</code> 文件:</p>
+<ul>
+<li><code>Module.symvers</code></li>
+<li><code>.config</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 命令来自 https://wiki.archlinux.org/index.php/Compile_kernel_module</span>
+</span></span><span class="line"><span class="cl">$ cp /usr/lib/modules/<span class="k">$(</span>uname -r<span class="k">)</span>/build/.config ./
+</span></span><span class="line"><span class="cl">$ cp /usr/lib/modules/<span class="k">$(</span>uname -r<span class="k">)</span>/build/Module.symvers ./
+</span></span></code></pre></div><blockquote>
+<p>如果没复制 <code>Module.symvers</code>, 编译会出现 <code>no symbol version for module_layout</code> 错误.</p>
+</blockquote>
+<p>上面命令的使用了 <code>uname -r</code> 来直接定位到当前系统运行的内核版本的 source 目录, 如果你不是编译当前运行的内核的 bcache 模块可自行指定 kernel 的 source 目录.</p>
+<p><code>make oldconfig</code> 后再 <code>make menuconfig</code>, 根据文档找到 bcache 的配置,将其选择为 <code>M</code>, 表示编译为模块.</p>
+<p>其他步骤按官方步骤执行, 若中途出错一般是未安装某些软件, 可以根据出错提示, 安装对应软件解决.</p>
+<p>模块编译后, 还要根据发行版的约束将模块设置为 boot 时加载, 需要在 <code>/etc/modules-load.d/</code> 目录下新建 <code>/etc/modules-load.d/bcache.conf</code>, 加入内容</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Load bcache.ko at boot</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># See the modules-load.d(5) and systemd-modules-load.service(8) man pages for more information.</span>
+</span></span><span class="line"><span class="cl">bcache
+</span></span></code></pre></div>
+
+<h2 class="relative group">bcache-tools 
+    <div id="bcache-tools" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bcache-tools" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>内核模块编译完成后, 还需要 userspace tools 的支持, 就是 <code>bcache-tools</code> 软件包.</p>
+<p>此软件包不光提供了常用的命令行工具, 还会自动的生成 <code>udev rules</code>.</p>
+<p>目前 red hat 系和 debian 系的 <code>bcache-tools</code> 工具集里的 <code>udev rules</code> 等略有差别, 源码及下载地址都不一样, <code>fedora 20</code> 以上的系统源里已包含此工具集, 包名就叫 <code>bcache-tools</code></p>
+<p>具体不同发行版的安装方式, 从 bcache 的 <a href="http://bcache.evilpiepirate.org/" target="_blank">官方网址</a> 摘抄可见</p>
+<blockquote>
+<p>Bcache has been merged into the mainline Linux kernel; for the latest stable bcache release use the latest 3.10 or 3.11 stable kernel.</p>
+<p>For the userspace tools,</p>
+<p>git clone <a href="http://evilpiepirate.org/git/bcache-tools.git" target="_blank">http://evilpiepirate.org/git/bcache-tools.git</a></p>
+<p>The udev rules, Debian/Ubuntu source package, and <a href="https://launchpad.net/~g2p/&#43;archive/storage/" target="_blank">Ubuntu PPA</a> are maintained here:</p>
+<p>git clone <a href="https://github.com/g2p/bcache-tools.git" target="_blank">https://github.com/g2p/bcache-tools.git</a></p>
+<p>To use the PPA (Ubuntu Raring and Saucy):</p>
+<p>sudo add-apt-repository ppa:g2p/storage
+sudo apt-get update
+sudo apt-get install bcache-tools</p>
+<p>The PPA also contains <a href="https://github.com/g2p/blocks" target="_blank">blocks</a>, a conversion tool.</p>
+<p>A Fedora package is available in Fedora 20, and maintained <a href="http://pkgs.fedoraproject.org/cgit/bcache-tools.git/" target="_blank">here</a>.</p>
+</blockquote>
+
+
+<h2 class="relative group">make-bcache 
+    <div id="make-bcache" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#make-bcache" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>安装完成用户态工具 <code>bcache-tools</code> 后, 使用其中的 <code>make-bcache</code> 来操作磁盘</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># make-bcache --help</span>
+</span></span><span class="line"><span class="cl">Usage: make-bcache <span class="o">[</span>options<span class="o">]</span> device
+</span></span><span class="line"><span class="cl">-C, --cache     Format a cache device
+</span></span><span class="line"><span class="cl">-B, --bdev      Format a backing device
+</span></span><span class="line"><span class="cl">-b, --bucket        bucket size
+</span></span><span class="line"><span class="cl">-w, --block     block size <span class="o">(</span>hard sector size of SSD, often 2k<span class="o">)</span>
+</span></span><span class="line"><span class="cl">-o, --data-offset   data offset in sectors
+</span></span><span class="line"><span class="cl">    --cset-uuid     UUID <span class="k">for</span> the cache <span class="nb">set</span>
+</span></span><span class="line"><span class="cl">    --writeback     <span class="nb">enable</span> writeback
+</span></span><span class="line"><span class="cl">    --discard       <span class="nb">enable</span> discards
+</span></span><span class="line"><span class="cl">    --cache_replacement_policy<span class="o">=(</span>lru<span class="p">|</span>fifo<span class="o">)</span>
+</span></span><span class="line"><span class="cl">-h, --help      display this <span class="nb">help</span> and <span class="nb">exit</span>
+</span></span></code></pre></div><p>对设备进行操作前需要先清理整个设备的分区及其他信息:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># wipefs -a &#39;devices&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">wipefs -a /dev/sda2 <span class="c1"># 分区</span>
+</span></span><span class="line"><span class="cl">wipefs -a /dev/sdb <span class="c1"># 整个磁盘</span>
+</span></span></code></pre></div><blockquote>
+<p><code>device</code> 可以是整个磁盘, 也可以是一个分区</p>
+</blockquote>
+<p>假设 <code>/dev/sdb</code> 是一块ssd, <code>/dev/sda</code> 是一块HDD, 现在使用 <code>/dev/sdb1</code> 作为 cache, <code>/dev/sda2</code> 作为 backend, 2 个分区都已经使用 wipefs 处理过. 接下来就开始分别创建 cache 设备和 backend 设备.</p>
+
+
+<h3 class="relative group">cache 
+    <div id="cache" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#cache" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>生成 cache 设备</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># make-bcache -C /dev/sdb1 </span>
+</span></span><span class="line"><span class="cl">UUID:               bf8f710d-5c99-4d40-8747-00d72a5af2cf
+</span></span><span class="line"><span class="cl">Set UUID:           5da393d6-b157-4bb3-a105-235a1425894d
+</span></span><span class="line"><span class="cl">version:            <span class="m">0</span>
+</span></span><span class="line"><span class="cl">nbuckets:           <span class="m">244206</span>
+</span></span><span class="line"><span class="cl">block_size:         <span class="m">1</span>
+</span></span><span class="line"><span class="cl">bucket_size:        <span class="m">1024</span>
+</span></span><span class="line"><span class="cl">nr_in_set:          <span class="m">1</span>
+</span></span><span class="line"><span class="cl">nr_this_dev:        <span class="m">0</span>
+</span></span><span class="line"><span class="cl">first_bucket:       <span class="m">1</span>
+</span></span></code></pre></div><p><code>UUID</code> &ndash;&gt; 实体设备 /dev/sdb1 的 UUID</p>
+<p><code>Set UUID</code> &ndash;&gt; 此 cache 设备被虚拟的 UUID &ndash;&gt; <code>5da393d6-b157-4bb3-a105-235a1425894d</code></p>
+<p>此 UUID 还可以通过查看 <code>/sys/fs/bcache/</code> 来确定</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /sys/fs/bcache/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">7</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:15 5da393d6-b157-4bb3-a105-235a1425894d
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:15 register
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:15 register_quiet
+</span></span></code></pre></div><p>查看此 cache 设备对应的实体设备</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /sys/fs/bcache/5da393d6-b157-4bb3-a105-235a1425894d/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 average_key_size
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 block_size
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 btree_cache_size
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 bucket_size
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:49 cache0 -&gt; ../../../devices/pci0000:00/0000:00:1f.2/ata6/host5/target5:0:0/5:0:0:0/block/sdb/sdb1/bcache
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 cache_available_percent
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 clear_stats
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 congested
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 congested_read_threshold_us
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 congested_write_threshold_us
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 errors
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 flash_vol_create
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:49 internal
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 io_error_halflife
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 io_error_limit
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 journal_delay_ms
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 root_usage_percent
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:49 stats_day
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:49 stats_five_minute
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:49 stats_hour
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:49 stats_total
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 stop
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 synchronous
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 tree_depth
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:49 unregister
+</span></span></code></pre></div><p>可以看见此块 cache 设备对应的是 /dev/sdb1</p>
+
+
+<h3 class="relative group">bcakend 
+    <div id="bcakend" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bcakend" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>以下命令会在 /dev 下生成一个名为 bcache0 的 backend 设备</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># make-bcache -B /dev/sda2 </span>
+</span></span><span class="line"><span class="cl">UUID:               eaad4f10-2e58-4379-ba32-75deaa57eda0
+</span></span><span class="line"><span class="cl">Set UUID:           3246bd30-130d-4a5b-b1ff-e71fe37bedf4
+</span></span><span class="line"><span class="cl">version:            <span class="m">1</span>
+</span></span><span class="line"><span class="cl">block_size:         <span class="m">1</span>
+</span></span><span class="line"><span class="cl">data_offset:        <span class="m">16</span>
+</span></span></code></pre></div><p>backend 设备一旦正常生成,就可对其进行普通的格式化等操作,与操作普通硬盘分区一般</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mkfs.ext4 /dev/bcache0
+</span></span></code></pre></div>
+
+<h3 class="relative group">show real device 
+    <div id="show-real-device" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#show-real-device" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>查看此后端 bcache0 设备实际对应的实体磁盘</p>
+<ul>
+<li>
+<p>当 /dev/bcache0 未格式化文件系统时</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /dev/bcache/by-uuid/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">13</span> Sep <span class="m">29</span> 15:45 eaad4f10-2e58-4379-ba32-75deaa57eda0 -&gt; ../../bcache0
+</span></span></code></pre></div><p>可以看见此设备实际指向的是 uuid <code>eaad4f10-2e58-4379-ba32-75deaa57eda0</code> 的设备</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /dev/disk/by-uuid/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 388e01f1-a27c-4f6c-bcac-823962963259 -&gt; ../../sda1
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 71683e71-2990-48a1-840d-0f43fb11340c -&gt; ../../sda5
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 abeedced-9450-4159-927b-5b4298d96bc1 -&gt; ../../sda3
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 bf8f710d-5c99-4d40-8747-00d72a5af2cf -&gt; ../../sdb1
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:45 eaad4f10-2e58-4379-ba32-75deaa57eda0 -&gt; ../../sda2
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 f1982595-8044-48ae-a344-54836d487666 -&gt; ../../sda6
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">13</span> Sep <span class="m">29</span> 16:30 ff8e456b-a5a0-4d20-8697-241e451e486e -&gt; ../../bcache0
+</span></span></code></pre></div><p>可发现此 UUID 对应为 /dev/sda2</p>
+</li>
+<li>
+<p>当 /dev/bcache0 已经格式化文件系统后</p>
+<p>直接查看 <code>/sys/block/bcache0/</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /sys/block/bcache0/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 alignment_offset
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 bcache -&gt; ../../../pci0000:00/0000:00:1f.2/ata1/host0/target0:0:0/0:0:0:0/block/sda/sda2/bcache
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 bdi -&gt; ../../bdi/253:0
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 capability
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 dev
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 discard_alignment
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 ext_range
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 holders
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 inflight
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 power
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 queue
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 range
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 removable
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 ro
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 size
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 slaves
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 stat
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 subsystem -&gt; ../../../../class/block
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">29</span> 10:53 trace
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">29</span> 10:53 uevent
+</span></span></code></pre></div><p>可以看见此后端设备实际对应的是 /dev/sda2</p>
+</li>
+</ul>
+<p>backend 设备 bcache0 与一般硬盘表现看起来无异, 可通过常规的 UUID 查看法查看其 UUID</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 未格式化 /dev/bcache0 设备时, 设备是未拥有 uuid 的, 格式化后才拥有 uuid</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># blkid </span>
+</span></span><span class="line"><span class="cl">/dev/sda1: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&#34;388e01f1-a27c-4f6c-bcac-823962963259&#34;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&#34;ext4&#34;</span> 
+</span></span><span class="line"><span class="cl">/dev/sda3: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&#34;abeedced-9450-4159-927b-5b4298d96bc1&#34;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&#34;ext4&#34;</span> 
+</span></span><span class="line"><span class="cl">/dev/sda5: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&#34;71683e71-2990-48a1-840d-0f43fb11340c&#34;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&#34;ext4&#34;</span> 
+</span></span><span class="line"><span class="cl">/dev/sda6: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&#34;f1982595-8044-48ae-a344-54836d487666&#34;</span> <span class="nv">SEC_TYPE</span><span class="o">=</span><span class="s2">&#34;ext2&#34;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&#34;ext3&#34;</span> 
+</span></span><span class="line"><span class="cl">/dev/block/8:3: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&#34;abeedced-9450-4159-927b-5b4298d96bc1&#34;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&#34;ext4&#34;</span> 
+</span></span><span class="line"><span class="cl">/dev/bcache0: <span class="nv">UUID</span><span class="o">=</span><span class="s2">&#34;ff8e456b-a5a0-4d20-8697-241e451e486e&#34;</span> <span class="nv">TYPE</span><span class="o">=</span><span class="s2">&#34;ext4&#34;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /dev/disk/by-uuid/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 388e01f1-a27c-4f6c-bcac-823962963259 -&gt; ../../sda1
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 71683e71-2990-48a1-840d-0f43fb11340c -&gt; ../../sda5
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 abeedced-9450-4159-927b-5b4298d96bc1 -&gt; ../../sda3
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 bf8f710d-5c99-4d40-8747-00d72a5af2cf -&gt; ../../sdb1
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:45 eaad4f10-2e58-4379-ba32-75deaa57eda0 -&gt; ../../sda2
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">10</span> Sep <span class="m">29</span> 15:38 f1982595-8044-48ae-a344-54836d487666 -&gt; ../../sda6
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root <span class="m">13</span> Sep <span class="m">29</span> 16:30 ff8e456b-a5a0-4d20-8697-241e451e486e -&gt; ../../bcache0
+</span></span></code></pre></div><p><code>eaad4f10-2e58-4379-ba32-75deaa57eda0</code> 就是后端 HDD 存储 bcache0 的 UUID</p>
+
+
+<h3 class="relative group">one step 
+    <div id="one-step" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#one-step" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<p>可通过将一行指令同时生产 cacahe 和 backend 设备</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make-bcache -B /dev/sda2 -C /dev/sdb1
+</span></span></code></pre></div><p>指定相关参数</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">make-bcache --wipe-bcache -w512 --discard --writeback -B /dev/sda2 -C /dev/sdb1
+</span></span></code></pre></div>
+
+<h2 class="relative group">attach &amp; detach 
+    <div id="attach--detach" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#attach--detach" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>在 <code>bcache-tools</code> 编译安装时, 会安装相应的 udev rules, 会将 cache 设备与 backend 设备自动进行 attch (绑定).</p>
+<p>相应的, 我们也可以进行手动 attch 或 detach</p>
+
+
+<h3 class="relative group">attach 
+    <div id="attach" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#attach" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#attach</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> 5da393d6-b157-4bb3-a105-235a1425894d &gt; /sys/block/bcache0/bcache/attach
+</span></span></code></pre></div><p>即将 cache 设备的 UUID 写入到 backend (bcache0) 设备的 <code>/sys/block/{设备}/bcache/attach</code> 中</p>
+<p>执行此命令后,会在 <code>/sys/block/bcache0/bcache/</code> 下生成一个 cache 目录 实际指向为 cache 设备目录 就表示已经 attch 成功</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /sys/block/bcache0/bcache/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 16:01 attach
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 bypass_torture_test
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 16:01 cache -&gt; ../../../../../../../../../../../fs/bcache/5da393d6-b157-4bb3-a105-235a1425894d
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 cache_mode
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 clear_stats
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 16:01 detach
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 dev -&gt; ../../../../../../../../../../virtual/block/bcache0
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 dirty_data
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 label
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 partial_stripes_expensive
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 readahead
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 running
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 sequential_cutoff
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 state
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_day
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_five_minute
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_hour
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_total
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 stop
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 stripe_size
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 verify
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_delay
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_metadata
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_percent
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_debug
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_d_term
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_p_term_inverse
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_update_seconds
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_running
+</span></span></code></pre></div><p>可以看见 cache 目录, 已经 attch 成功</p>
+
+
+<h3 class="relative group">detach 
+    <div id="detach" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#detach" aria-label="锚点">#</a>
+    </span>        
+    
+</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#detach </span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> 5da393d6-b157-4bb3-a105-235a1425894d &gt; /sys/block/bcache0/bcache/detach
+</span></span></code></pre></div><p>相应对于 attach, detach 成功之后 <code>/sys/block/bcache0/bcache/</code> 下的 cache 目录就会消失</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># ls -lh /sys/block/bcache0/bcache/</span>
+</span></span><span class="line"><span class="cl">total <span class="m">0</span>
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 16:01 attach
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 bypass_torture_test
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 cache_mode
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 clear_stats
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 16:01 detach
+</span></span><span class="line"><span class="cl">lrwxrwxrwx <span class="m">1</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 dev -&gt; ../../../../../../../../../../virtual/block/bcache0
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 dirty_data
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 label
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 partial_stripes_expensive
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 readahead
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 running
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 sequential_cutoff
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 state
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_day
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_five_minute
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_hour
+</span></span><span class="line"><span class="cl">drwxr-xr-x <span class="m">2</span> root root    <span class="m">0</span> Sep <span class="m">28</span> 15:13 stats_total
+</span></span><span class="line"><span class="cl">--w------- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 stop
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 stripe_size
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 verify
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_delay
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_metadata
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_percent
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate
+</span></span><span class="line"><span class="cl">-r--r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_debug
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_d_term
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_p_term_inverse
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_rate_update_seconds
+</span></span><span class="line"><span class="cl">-rw-r--r-- <span class="m">1</span> root root 4.0K Sep <span class="m">28</span> 15:13 writeback_running
+</span></span></code></pre></div>
+
+<h2 class="relative group">cache mode 
+    <div id="cache-mode" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#cache-mode" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>可以通过查看目录下的 <code>cache_mode</code> 文件来查看 cache 的缓存策略</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># cat /sys/block/bcache0/bcache/cache_mode </span>
+</span></span><span class="line"><span class="cl">writethrough <span class="o">[</span>writeback<span class="o">]</span> writearound none 
+</span></span></code></pre></div><p>修改策略</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># echo writethrough &gt; /sys/block/bcache0/bcache/cache_mode </span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># cat /sys/block/bcache0/bcache/cache_mode </span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>writethrough<span class="o">]</span> writeback writearound none
+</span></span></code></pre></div><p>强制让 backend 设备在无 cache 设备情况下运行</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># echo 1 &gt; /sys/block/sda/sda2/bcache/running</span>
+</span></span></code></pre></div><p>此处不能使用 <code>/sys/block/bcache0</code>, 因为此时 bcach0 并不存在.</p>
+<p>假如你的 backend 设备未使用分区, 则 bcache 目录为 <code>/sys/block/sda/bcache</code></p>
+
+
+<h2 class="relative group">stop bcache 
+    <div id="stop-bcache" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#stop-bcache" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>停止 bcache</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># echo 1 &gt; /sys/block/sda/sda2/bcache/stop</span>
+</span></span></code></pre></div>
+
+<h2 class="relative group">bcache-status 
+    <div id="bcache-status" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#bcache-status" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>可以通查看 bcache 目录下的 state 文件来查看 bcache 的状态</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">cat /sys/block/bcache0/bcache/state
+</span></span></code></pre></div><p>也可以通过 python 写的 <code>bcache-status</code> 小程序来查看 bcache 的状态 此工具包含在 fedora 20 以上的 <code>bcache-tools</code> 工具里, debian 系或自行编译的 <code>bcache-tools</code> 里并未有此工具, 需要自行上 github 下载.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># bcache-status --help</span>
+</span></span><span class="line"><span class="cl">usage: bcache-status <span class="o">[</span>--help<span class="o">]</span> <span class="o">[</span>-f<span class="o">]</span> <span class="o">[</span>-h<span class="o">]</span> <span class="o">[</span>-d<span class="o">]</span> <span class="o">[</span>-t<span class="o">]</span> <span class="o">[</span>-a<span class="o">]</span> <span class="o">[</span>-r<span class="o">]</span> <span class="o">[</span>-s<span class="o">]</span> <span class="o">[</span>-g<span class="o">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">optional arguments:
+</span></span><span class="line"><span class="cl">  --help             Show this <span class="nb">help</span> message and <span class="nb">exit</span>
+</span></span><span class="line"><span class="cl">  -f, --five-minute  Print the last five minutes of stats.
+</span></span><span class="line"><span class="cl">  -h, --hour         Print the last hour of stats.
+</span></span><span class="line"><span class="cl">  -d, --day          Print the last day of stats.
+</span></span><span class="line"><span class="cl">  -t, --total        Print total stats.
+</span></span><span class="line"><span class="cl">  -a, --all          Print all stats.
+</span></span><span class="line"><span class="cl">  -r, --reset-stats  Reset stats after printing them.
+</span></span><span class="line"><span class="cl">  -s, --sub-status   Print subdevice status.
+</span></span><span class="line"><span class="cl">  -g, --gc           Invoke GC before printing status.
+</span></span></code></pre></div><p>这是正常 attach 后并有使用的状态, 可以看见 cache size, hits, cache mode 等详细信息</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># bcache-status -a</span>
+</span></span><span class="line"><span class="cl">--- bcache ---
+</span></span><span class="line"><span class="cl">UUID                        5da393d6-b157-4bb3-a105-235a1425894d
+</span></span><span class="line"><span class="cl">Block Size                  <span class="m">512</span> B
+</span></span><span class="line"><span class="cl">Bucket Size                 512.00 KiB
+</span></span><span class="line"><span class="cl">Congested?                  False
+</span></span><span class="line"><span class="cl">Read Congestion             2.0ms
+</span></span><span class="line"><span class="cl">Write Congestion            20.0ms
+</span></span><span class="line"><span class="cl">Total Cache Size            <span class="m">28</span> GiB
+</span></span><span class="line"><span class="cl">Total Cache Used            <span class="m">6</span> GiB   <span class="o">(</span>23%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Total Cache Unused          <span class="m">22</span> GiB  <span class="o">(</span>77%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Evictable Cache             <span class="m">28</span> GiB  <span class="o">(</span>100%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Replacement Policy          <span class="o">[</span>lru<span class="o">]</span> fifo random
+</span></span><span class="line"><span class="cl">Cache Mode                  writethrough <span class="o">[</span>writeback<span class="o">]</span> writearound none
+</span></span><span class="line"><span class="cl">Last 5min Hits              <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Misses            <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Bypass Hits       <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Bypass Misses     <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Bypassed          <span class="m">0</span> B
+</span></span><span class="line"><span class="cl">Last Hour Hits              <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Misses            <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Bypass Hits       <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Bypass Misses     <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Bypassed          <span class="m">0</span> B
+</span></span><span class="line"><span class="cl">Last Day Hits               <span class="m">10</span>  <span class="o">(</span>55%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Last Day Misses             <span class="m">8</span>
+</span></span><span class="line"><span class="cl">Last Day Bypass Hits        <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Day Bypass Misses      <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Day Bypassed           <span class="m">0</span> B
+</span></span><span class="line"><span class="cl">Total Hits                  <span class="m">95</span>  <span class="o">(</span>53%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Total Misses                <span class="m">81</span>
+</span></span><span class="line"><span class="cl">Total Bypass Hits           <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Total Bypass Misses         <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Total Bypassed              <span class="m">0</span> B
+</span></span></code></pre></div><p>这是 detach 后的</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">[</span>root@pure-test ~<span class="o">]</span><span class="c1"># bcache-status -a</span>
+</span></span><span class="line"><span class="cl">--- bcache ---
+</span></span><span class="line"><span class="cl">UUID                        5da393d6-b157-4bb3-a105-235a1425894d
+</span></span><span class="line"><span class="cl">Block Size                  <span class="m">512</span> B
+</span></span><span class="line"><span class="cl">Bucket Size                 512.00 KiB
+</span></span><span class="line"><span class="cl">Congested?                  False
+</span></span><span class="line"><span class="cl">Read Congestion             2.0ms
+</span></span><span class="line"><span class="cl">Write Congestion            20.0ms
+</span></span><span class="line"><span class="cl">Total Cache Size            <span class="m">28</span> GiB
+</span></span><span class="line"><span class="cl">Total Cache Used            <span class="m">6</span> GiB   <span class="o">(</span>23%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Total Cache Unused          <span class="m">22</span> GiB  <span class="o">(</span>77%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Evictable Cache             <span class="m">28</span> GiB  <span class="o">(</span>100%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Replacement Policy          <span class="o">[</span>lru<span class="o">]</span> fifo random
+</span></span><span class="line"><span class="cl">Cache Mode                  <span class="o">(</span>Various<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Last 5min Hits              <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Misses            <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Bypass Hits       <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Bypass Misses     <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last 5min Bypassed          <span class="m">0</span> B
+</span></span><span class="line"><span class="cl">Last Hour Hits              <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Misses            <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Bypass Hits       <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Bypass Misses     <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Hour Bypassed          <span class="m">0</span> B
+</span></span><span class="line"><span class="cl">Last Day Hits               <span class="m">10</span>  <span class="o">(</span>55%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Last Day Misses             <span class="m">8</span>
+</span></span><span class="line"><span class="cl">Last Day Bypass Hits        <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Day Bypass Misses      <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Last Day Bypassed           <span class="m">0</span> B
+</span></span><span class="line"><span class="cl">Total Hits                  <span class="m">95</span>  <span class="o">(</span>53%<span class="o">)</span>
+</span></span><span class="line"><span class="cl">Total Misses                <span class="m">81</span>
+</span></span><span class="line"><span class="cl">Total Bypass Hits           <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Total Bypass Misses         <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Total Bypassed              <span class="m">0</span> B
+</span></span></code></pre></div><p>可以看见 <code>Cache Mode                  (Various)</code>, 这表示 cache 设备已经 detach</p>
+
+
+<h2 class="relative group">补充 
+    <div id="%E8%A1%A5%E5%85%85" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#%E8%A1%A5%E5%85%85" aria-label="锚点">#</a>
+    </span>        
+    
+</h2>
+<p>kernel doc 的描述: <a href="https://www.kernel.org/doc/Documentation/bcache.txt" target="_blank">bcache.txt</a></p>
+<p>archlinux 的 <a href="https://wiki.archlinux.org/index.php/Bcache" target="_blank">wiki</a></p>
+
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+
+          
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/bcache-notes\/index.md"
+        var oid_likes = "likes_posts\/bcache-notes\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+      
+      
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/posts/2019/01/monitoring-linux-node-with-collected-web/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >使用 Collectd-web 监控 Linux 节点</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2019-01-06T00:49:00&#43;08:00">2019-01-06</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="返回顶部" title="返回顶部">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            标签
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            类别
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2024
+      Z10N0110
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a> 强力驱动
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="搜索"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="关闭 (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

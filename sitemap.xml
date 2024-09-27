@@ -1,151 +1,128 @@
-<?xml-stylesheet type="text/xsl" href="http://localhost:1313/sitemap.xsl"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
   <url>
-    <loc>http://localhost:1313/links/</loc>
-    <lastmod>2020-03-25T02:44:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/</loc>
+    <lastmod>2024-03-16T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2020-03-25T02:44:12+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/</loc>
+    <lastmod>2024-03-16T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/about/</loc>
-    <lastmod>2020-03-25T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2024/03/nm-dhcp-implementations-selection/</loc>
+    <lastmod>2024-03-09T11:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/categories/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/tags/</loc>
+    <lastmod>2024-03-09T11:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/tags/elasticsearch/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2023/06/curl-x509-pub-key-pinned/</loc>
+    <lastmod>2023-06-26T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/categories/elasticsearch/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2023/06/golang-x509-skid/</loc>
+    <lastmod>2023-06-12T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/tags/logstash/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/categories/</loc>
+    <lastmod>2023-06-03T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/categories/logstash/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2023/06/ecc-meandering/</loc>
+    <lastmod>2023-06-03T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/post/logstash-ruby-filter/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2022/11/set-specific-dns-nameservers-for-specific-domain-on-macos/</loc>
+    <lastmod>2022-11-10T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/post/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2022/11/promql-sort-by-label-feat/</loc>
+    <lastmod>2022-11-08T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/tags/ruby/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2022/10/etcd-big-data-performance/</loc>
+    <lastmod>2022-10-29T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/tags/</loc>
-    <lastmod>2020-03-19T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/posts/2022/10/naming-hosts-on-your-network/</loc>
+    <lastmod>2022-10-23T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/post/bcache/</loc>
+    <loc>/posts/2022/10/choose-tld-for-your-private-network/</loc>
+    <lastmod>2022-10-22T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>/posts/2022/10/show-vnstat-imgs-via-web/</loc>
+    <lastmod>2022-10-18T12:39:03+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>/posts/2022/05/using-supermicro-x10drl-i/</loc>
+    <lastmod>2022-05-21T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>/posts/2021/05/monitoring-oom-kill/</loc>
+    <lastmod>2021-05-30T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>/posts/2019/01/monitoring-linux-node-with-collected-web/</loc>
+    <lastmod>2019-01-06T00:49:00+08:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>/posts/2018/01/bcache-notes/</loc>
     <lastmod>2018-01-09T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/tags/bcache/</loc>
-    <lastmod>2018-01-09T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/authors/</loc>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/categories/bcache/</loc>
-    <lastmod>2018-01-09T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/series/</loc>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
   <url>
-    <loc>http://localhost:1313/tags/kernel/</loc>
-    <lastmod>2018-01-09T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>/about/</loc>
+    <changefreq>daily</changefreq>
     <priority>0.5</priority>
   </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/linux/</loc>
-    <lastmod>2018-01-09T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/gitlab/</loc>
-    <lastmod>2017-04-16T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/categories/gitlab/</loc>
-    <lastmod>2017-04-16T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/post/gitlab/</loc>
-    <lastmod>2017-04-16T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>http://localhost:1313/tags/omnibus/</loc>
-    <lastmod>2017-04-16T00:49:00+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
 </urlset>

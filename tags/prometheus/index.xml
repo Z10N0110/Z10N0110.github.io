@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Prometheus on 呓语</title>
+    <link>/tags/prometheus/</link>
+    <description>Recent content in Prometheus on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Tue, 08 Nov 2022 00:49:00 +0800</lastBuildDate><atom:link href="/tags/prometheus/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>promQL 按 Label 排序的函数</title>
+      <link>/posts/2022/11/promql-sort-by-label-feat/</link>
+      <pubDate>Tue, 08 Nov 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/11/promql-sort-by-label-feat/</guid>
+      <description>最近给 Grafana 的 Node Exporter Full 这个公开仪表盘提了一个 PR.</description>
+      
+    </item>
+    
+  </channel>
+</rss>

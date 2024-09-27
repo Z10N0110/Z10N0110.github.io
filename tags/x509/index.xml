@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>X509 on 呓语</title>
+    <link>/tags/x509/</link>
+    <description>Recent content in X509 on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Mon, 12 Jun 2023 00:49:00 +0800</lastBuildDate><atom:link href="/tags/x509/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go X.509 标准库中 SKID 的故事</title>
+      <link>/posts/2023/06/golang-x509-skid/</link>
+      <pubDate>Mon, 12 Jun 2023 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2023/06/golang-x509-skid/</guid>
+      <description>SKID 是什么 # 1999 的 RFC 2459 Internet X.</description>
+      
+    </item>
+    
+  </channel>
+</rss>

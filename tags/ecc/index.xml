@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ECC on 呓语</title>
+    <link>/tags/ecc/</link>
+    <description>Recent content in ECC on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Sat, 03 Jun 2023 00:49:00 +0800</lastBuildDate><atom:link href="/tags/ecc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>ECC 杂谈：NIST / NSA 后门，Curve25519</title>
+      <link>/posts/2023/06/ecc-meandering/</link>
+      <pubDate>Sat, 03 Jun 2023 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2023/06/ecc-meandering/</guid>
+      <description>最近由于工作原因，接触了不少现代计算机密码学知识。想写点东西分享分享，但由于学的都是些皮毛，属于将就能够应用的水平，这里只能写一篇杂谈，闲聊下 ECC 和 25519。</description>
+      
+    </item>
+    
+  </channel>
+</rss>

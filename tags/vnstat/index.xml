@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Vnstat on 呓语</title>
+    <link>/tags/vnstat/</link>
+    <description>Recent content in Vnstat on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Tue, 18 Oct 2022 12:39:03 +0800</lastBuildDate><atom:link href="/tags/vnstat/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>通过 Web 访问 vnstat 的统计图</title>
+      <link>/posts/2022/10/show-vnstat-imgs-via-web/</link>
+      <pubDate>Tue, 18 Oct 2022 12:39:03 +0800</pubDate>
+      
+      <guid>/posts/2022/10/show-vnstat-imgs-via-web/</guid>
+      <description>有朋友问我是否能像 OpenWrt 上的 vnstat 那样，通过网页看 VPS 节点上 vnstat 生成的统计图。我个人的方案是通过比较简陋的脚本实现的（能用就行），已经在 VPS 上运行了很久了，这里简单分享一下具体过程。</description>
+      
+    </item>
+    
+  </channel>
+</rss>

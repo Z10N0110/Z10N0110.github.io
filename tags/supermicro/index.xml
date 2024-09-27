@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Supermicro on 呓语</title>
+    <link>/tags/supermicro/</link>
+    <description>Recent content in Supermicro on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Sat, 21 May 2022 00:49:00 +0800</lastBuildDate><atom:link href="/tags/supermicro/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Supermicro X10DRL-i</title>
+      <link>/posts/2022/05/using-supermicro-x10drl-i/</link>
+      <pubDate>Sat, 21 May 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/05/using-supermicro-x10drl-i/</guid>
+      <description>在某海鲜二手市场买了一块超微的 X10DRL-i，用来做家里的 HomeLab。</description>
+      
+    </item>
+    
+  </channel>
+</rss>

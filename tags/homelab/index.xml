@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HomeLab on 呓语</title>
+    <link>/tags/homelab/</link>
+    <description>Recent content in HomeLab on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Sun, 23 Oct 2022 00:49:00 +0800</lastBuildDate><atom:link href="/tags/homelab/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何给你的服务器命名</title>
+      <link>/posts/2022/10/naming-hosts-on-your-network/</link>
+      <pubDate>Sun, 23 Oct 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/10/naming-hosts-on-your-network/</guid>
+      <description>在 如何为你的私有网络选择 TLD(顶级域名) 中，描述了 TLD 的选择。这篇文章算是续集，讲讲服务器的命名。</description>
+      
+    </item>
+    
+    <item>
+      <title>如何为你的私有网络选择 TLD（顶级域名）</title>
+      <link>/posts/2022/10/choose-tld-for-your-private-network/</link>
+      <pubDate>Sat, 22 Oct 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/10/choose-tld-for-your-private-network/</guid>
+      <description>家中有 N 个 HomeLab 设备，上面常态化运行着一些 VM 提供服务/实验用途。数量一多，怎么访问服务地址变成了一个问题，因为 IP 地址实在是记不住。是时候给家中的网络统一配置一个私有的 TLD (顶级域名)了。</description>
+      
+    </item>
+    
+    <item>
+      <title>使用 Supermicro X10DRL-i</title>
+      <link>/posts/2022/05/using-supermicro-x10drl-i/</link>
+      <pubDate>Sat, 21 May 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/05/using-supermicro-x10drl-i/</guid>
+      <description>在某海鲜二手市场买了一块超微的 X10DRL-i，用来做家里的 HomeLab。</description>
+      
+    </item>
+    
+  </channel>
+</rss>

@@ -2,59 +2,160 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>呓语</title>
-    <link>http://localhost:1313/</link>
+    <link>/</link>
     <description>Recent content on 呓语</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 25 Mar 2020 02:44:12 +0800</lastBuildDate>
-    
-	<atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" />
-    
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Sat, 16 Mar 2024 00:49:00 +0800</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NetworkManager 的 DHCP 选择</title>
+      <link>/posts/2024/03/nm-dhcp-implementations-selection/</link>
+      <pubDate>Sat, 09 Mar 2024 11:49:00 +0800</pubDate>
+      
+      <guid>/posts/2024/03/nm-dhcp-implementations-selection/</guid>
+      <description>NetworkManager （接下来下面将简称 nm） 的 [main] 配置块中，可以选择不同的几种 DHCP Client 实现：</description>
+      
+    </item>
     
     <item>
-      <title>友链</title>
-      <link>http://localhost:1313/links/</link>
-      <pubDate>Wed, 25 Mar 2020 02:44:12 +0800</pubDate>
+      <title>cURL 的 --pinnedpubkey</title>
+      <link>/posts/2023/06/curl-x509-pub-key-pinned/</link>
+      <pubDate>Mon, 26 Jun 2023 00:49:00 +0800</pubDate>
       
-      <guid>http://localhost:1313/links/</guid>
-      <description>友情链接 一个人的朝圣 湖光博客</description>
+      <guid>/posts/2023/06/curl-x509-pub-key-pinned/</guid>
+      <description>偶然看到一篇文章：Go: Calculating public key hashes for public key pinning in curl，其中提到 cURL 的一个有趣的参数：--pinnedpubkey。</description>
+      
+    </item>
+    
+    <item>
+      <title>Go X.509 标准库中 SKID 的故事</title>
+      <link>/posts/2023/06/golang-x509-skid/</link>
+      <pubDate>Mon, 12 Jun 2023 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2023/06/golang-x509-skid/</guid>
+      <description>SKID 是什么 # 1999 的 RFC 2459 Internet X.</description>
+      
+    </item>
+    
+    <item>
+      <title>ECC 杂谈：NIST / NSA 后门，Curve25519</title>
+      <link>/posts/2023/06/ecc-meandering/</link>
+      <pubDate>Sat, 03 Jun 2023 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2023/06/ecc-meandering/</guid>
+      <description>最近由于工作原因，接触了不少现代计算机密码学知识。想写点东西分享分享，但由于学的都是些皮毛，属于将就能够应用的水平，这里只能写一篇杂谈，闲聊下 ECC 和 25519。</description>
+      
+    </item>
+    
+    <item>
+      <title>macOS 下让特定域名的解析使用指定的 DNS Nameserver</title>
+      <link>/posts/2022/11/set-specific-dns-nameservers-for-specific-domain-on-macos/</link>
+      <pubDate>Thu, 10 Nov 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/11/set-specific-dns-nameservers-for-specific-domain-on-macos/</guid>
+      <description>要实现标题所描述的目的，在 macOS 上有两种手段。</description>
+      
+    </item>
+    
+    <item>
+      <title>promQL 按 Label 排序的函数</title>
+      <link>/posts/2022/11/promql-sort-by-label-feat/</link>
+      <pubDate>Tue, 08 Nov 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/11/promql-sort-by-label-feat/</guid>
+      <description>最近给 Grafana 的 Node Exporter Full 这个公开仪表盘提了一个 PR.</description>
+      
+    </item>
+    
+    <item>
+      <title>Etcd 的 Storage size limit</title>
+      <link>/posts/2022/10/etcd-big-data-performance/</link>
+      <pubDate>Sat, 29 Oct 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/10/etcd-big-data-performance/</guid>
+      <description>Etcd 作为云原生领域知名的开源分布式 KV 存储系统，在存储的数据集较大的情况下一直存在一定的性能问题。所以在其官网文档页面上的 System limits 章节明确指出了建议给存储配置最大的限额是 8 GB：</description>
+      
+    </item>
+    
+    <item>
+      <title>如何给你的服务器命名</title>
+      <link>/posts/2022/10/naming-hosts-on-your-network/</link>
+      <pubDate>Sun, 23 Oct 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/10/naming-hosts-on-your-network/</guid>
+      <description>在 如何为你的私有网络选择 TLD(顶级域名) 中，描述了 TLD 的选择。这篇文章算是续集，讲讲服务器的命名。</description>
+      
+    </item>
+    
+    <item>
+      <title>如何为你的私有网络选择 TLD（顶级域名）</title>
+      <link>/posts/2022/10/choose-tld-for-your-private-network/</link>
+      <pubDate>Sat, 22 Oct 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/10/choose-tld-for-your-private-network/</guid>
+      <description>家中有 N 个 HomeLab 设备，上面常态化运行着一些 VM 提供服务/实验用途。数量一多，怎么访问服务地址变成了一个问题，因为 IP 地址实在是记不住。是时候给家中的网络统一配置一个私有的 TLD (顶级域名)了。</description>
+      
+    </item>
+    
+    <item>
+      <title>通过 Web 访问 vnstat 的统计图</title>
+      <link>/posts/2022/10/show-vnstat-imgs-via-web/</link>
+      <pubDate>Tue, 18 Oct 2022 12:39:03 +0800</pubDate>
+      
+      <guid>/posts/2022/10/show-vnstat-imgs-via-web/</guid>
+      <description>有朋友问我是否能像 OpenWrt 上的 vnstat 那样，通过网页看 VPS 节点上 vnstat 生成的统计图。我个人的方案是通过比较简陋的脚本实现的（能用就行），已经在 VPS 上运行了很久了，这里简单分享一下具体过程。</description>
+      
+    </item>
+    
+    <item>
+      <title>使用 Supermicro X10DRL-i</title>
+      <link>/posts/2022/05/using-supermicro-x10drl-i/</link>
+      <pubDate>Sat, 21 May 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/05/using-supermicro-x10drl-i/</guid>
+      <description>在某海鲜二手市场买了一块超微的 X10DRL-i，用来做家里的 HomeLab。</description>
+      
+    </item>
+    
+    <item>
+      <title>监控 Linux 上的 OOM</title>
+      <link>/posts/2021/05/monitoring-oom-kill/</link>
+      <pubDate>Sun, 30 May 2021 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2021/05/monitoring-oom-kill/</guid>
+      <description>在使用 Linux 的实际生产实践中，其上运行的程序有可能会发生被 OOM Kill 的情况。某些场景下，我们会想把它监控起来。</description>
+      
+    </item>
+    
+    <item>
+      <title>使用 Collectd-web 监控 Linux 节点</title>
+      <link>/posts/2019/01/monitoring-linux-node-with-collected-web/</link>
+      <pubDate>Sun, 06 Jan 2019 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2019/01/monitoring-linux-node-with-collected-web/</guid>
+      <description>我有一个 VPS，内存只有 237 MiB，上面运行的是 Debian 9。供应商自己的监控功能和页面只能评价为存在.</description>
+      
+    </item>
+    
+    <item>
+      <title>Bcache 小记</title>
+      <link>/posts/2018/01/bcache-notes/</link>
+      <pubDate>Tue, 09 Jan 2018 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2018/01/bcache-notes/</guid>
+      <description>bcache 是 Linux 内核级别提供的一种缓存方案(要求内核版本 3.</description>
+      
     </item>
     
     <item>
       <title>关于</title>
-      <link>http://localhost:1313/about/</link>
-      <pubDate>Wed, 25 Mar 2020 00:49:00 +0800</pubDate>
+      <link>/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>http://localhost:1313/about/</guid>
-      <description>我有很多硬盘</description>
-    </item>
-    
-    <item>
-      <title>Logstash Ruby Filter 小记</title>
-      <link>http://localhost:1313/post/logstash-ruby-filter/</link>
-      <pubDate>Thu, 19 Mar 2020 00:49:00 +0800</pubDate>
+      <guid>/about/</guid>
+      <description> </description>
       
-      <guid>http://localhost:1313/post/logstash-ruby-filter/</guid>
-      <description>&lt;p&gt;早上有同事找说在kibana上某客户的sdk日志从早上8点后直接跳水:&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Bcache</title>
-      <link>http://localhost:1313/post/bcache/</link>
-      <pubDate>Tue, 09 Jan 2018 00:49:00 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/bcache/</guid>
-      <description>&lt;p&gt;关于bcache实验的小小笔记&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;bcache&lt;/code&gt; 是 linux 内核级别提供的一种缓存方案 (要求内核版本 &lt;code&gt;3.10&lt;/code&gt; 以上并内核编译时内部有加入bcache支持)&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>gitlab 笔记</title>
-      <link>http://localhost:1313/post/gitlab/</link>
-      <pubDate>Sun, 16 Apr 2017 00:49:00 +0800</pubDate>
-      
-      <guid>http://localhost:1313/post/gitlab/</guid>
-      <description>&lt;p&gt;记录 &lt;code&gt;gitlab-ce&lt;/code&gt; 与  &lt;code&gt;gitlab-ci-multi-runner&lt;/code&gt; 的安装,配置与管理&lt;/p&gt;</description>
     </item>
     
   </channel>

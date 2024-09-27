@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>MacOS on 呓语</title>
+    <link>/tags/macos/</link>
+    <description>Recent content in MacOS on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Thu, 10 Nov 2022 00:49:00 +0800</lastBuildDate><atom:link href="/tags/macos/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>macOS 下让特定域名的解析使用指定的 DNS Nameserver</title>
+      <link>/posts/2022/11/set-specific-dns-nameservers-for-specific-domain-on-macos/</link>
+      <pubDate>Thu, 10 Nov 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/11/set-specific-dns-nameservers-for-specific-domain-on-macos/</guid>
+      <description>要实现标题所描述的目的，在 macOS 上有两种手段。</description>
+      
+    </item>
+    
+  </channel>
+</rss>

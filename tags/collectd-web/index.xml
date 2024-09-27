@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Collectd-Web on 呓语</title>
+    <link>/tags/collectd-web/</link>
+    <description>Recent content in Collectd-Web on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Sun, 06 Jan 2019 00:49:00 +0800</lastBuildDate><atom:link href="/tags/collectd-web/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>使用 Collectd-web 监控 Linux 节点</title>
+      <link>/posts/2019/01/monitoring-linux-node-with-collected-web/</link>
+      <pubDate>Sun, 06 Jan 2019 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2019/01/monitoring-linux-node-with-collected-web/</guid>
+      <description>我有一个 VPS，内存只有 237 MiB，上面运行的是 Debian 9。供应商自己的监控功能和页面只能评价为存在.</description>
+      
+    </item>
+    
+  </channel>
+</rss>

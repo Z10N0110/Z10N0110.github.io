@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Etcd on 呓语</title>
+    <link>/tags/etcd/</link>
+    <description>Recent content in Etcd on 呓语</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>© 2024 Z10N0110</copyright>
+    <lastBuildDate>Sat, 29 Oct 2022 00:49:00 +0800</lastBuildDate><atom:link href="/tags/etcd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Etcd 的 Storage size limit</title>
+      <link>/posts/2022/10/etcd-big-data-performance/</link>
+      <pubDate>Sat, 29 Oct 2022 00:49:00 +0800</pubDate>
+      
+      <guid>/posts/2022/10/etcd-big-data-performance/</guid>
+      <description>Etcd 作为云原生领域知名的开源分布式 KV 存储系统，在存储的数据集较大的情况下一直存在一定的性能问题。所以在其官网文档页面上的 System limits 章节明确指出了建议给存储配置最大的限额是 8 GB：</description>
+      
+    </item>
+    
+  </channel>
+</rss>
